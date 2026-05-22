@@ -14,3 +14,66 @@ body {
 a {
 	text-underline-offset: 0.2em;
 }
+
+@keyframes tech-float {
+	0%,
+	100% {
+		transform: translate(-50%, -50%) translateY(0);
+	}
+
+	50% {
+		transform: translate(-50%, -50%) translateY(-10px);
+	}
+}
+
+.tech-bubble {
+	position: absolute;
+	top: var(--y);
+	left: var(--x);
+	--bubble-size: 8.75rem;
+	width: var(--bubble-size);
+	height: var(--bubble-size);
+	animation: tech-float 7s ease-in-out infinite;
+}
+
+.site-grid {
+	position: relative;
+	overflow: hidden;
+	background-image:
+		linear-gradient(rgba(68, 64, 60, 0.055) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(68, 64, 60, 0.055) 1px, transparent 1px);
+	background-size: 56px 56px;
+}
+
+.grid-hover-cells {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 56px);
+	grid-auto-rows: 56px;
+	align-content: start;
+}
+
+.grid-hover-cells span {
+	background-color: rgba(146, 64, 14, 0.08);
+	opacity: 0;
+	transition: opacity 750ms cubic-bezier(0.16, 1, 0.3, 1);
+	will-change: opacity;
+}
+
+.grid-hover-cells span.is-active {
+	opacity: 1;
+	transition-duration: 500ms;
+}
+
+.site-grid > * {
+	position: relative;
+	z-index: 1;
+}
+
+.site-grid > .grid-hover-cells {
+	position: absolute;
+	z-index: 0;
+}

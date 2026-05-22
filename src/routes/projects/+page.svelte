@@ -18,7 +18,7 @@
 		description="This page lists all portfolio projects. Swap these placeholders with live projects, case studies, and technical writeups."
 	/>
 
-	<div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+	<div class="mt-10 divide-y divide-stone-300/80 border-y border-stone-300/80">
 		{#each projects as project (project.title)}
 			<ProjectCard {project} />
 		{/each}

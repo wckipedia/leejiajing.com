@@ -53,5 +53,15 @@ export const education = [
 		school: 'Placeholder University',
 		program: 'Degree or program name',
 		period: '2023 - Present'
+	},
+	{
+		school: 'Relevant Coursework',
+		program: 'Web development, software engineering, databases, and human-computer interaction',
+		period: '2024'
+	},
+	{
+		school: 'Self-Directed Learning',
+		program: 'Building projects with SvelteKit, TypeScript, Tailwind CSS, and modern frontend tools',
+		period: 'Ongoing'
 	}
 ];
