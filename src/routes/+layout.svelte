@@ -16,9 +16,8 @@
 				return;
 			}
 
-			const rect = node.getBoundingClientRect();
-			node.style.setProperty('--grid-light-x', `${pointer.clientX - rect.left}px`);
-			node.style.setProperty('--grid-light-y', `${pointer.clientY - rect.top}px`);
+			node.style.setProperty('--grid-light-x', `${pointer.clientX}px`);
+			node.style.setProperty('--grid-light-y', `${pointer.clientY}px`);
 			node.style.setProperty('--grid-light-opacity', '1');
 		}
 
@@ -53,12 +52,13 @@
 	}
 </script>
 
-<div class="site-grid flex min-h-screen flex-col bg-[#f7f0e6] text-stone-900" {@attach gridLight}>
+<div class="site-grid flex min-h-screen flex-col text-stone-900" {@attach gridLight}>
+	<div class="grid-backdrop" aria-hidden="true"></div>
 	<div class="grid-line-light" aria-hidden="true"></div>
 
 	<Header />
 
-	<main class="flex-1">
+	<main class="flex-1 pt-24">
 		{@render children()}
 	</main>
 

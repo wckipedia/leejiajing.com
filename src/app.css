@@ -10,6 +10,7 @@
 body {
 	margin: 0;
 	background: #f7f0e6;
+	overscroll-behavior-y: none;
 }
 
 a {
@@ -39,25 +40,33 @@ a {
 
 .site-grid {
 	position: relative;
-	overflow: hidden;
+	min-height: 100vh;
 	--grid-light-x: 50%;
 	--grid-light-y: 0;
 	--grid-light-opacity: 0;
-	background-image:
-		linear-gradient(rgba(68, 64, 60, 0.055) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(68, 64, 60, 0.055) 1px, transparent 1px);
+	background: #f7f0e6;
+}
+
+.grid-backdrop,
+.grid-line-light {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
 	background-size: 56px 56px;
 }
 
-.grid-line-light {
-	position: absolute;
-	inset: 0;
-	pointer-events: none;
+.grid-backdrop {
 	z-index: 0;
+	background-image:
+		linear-gradient(rgba(68, 64, 60, 0.055) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(68, 64, 60, 0.055) 1px, transparent 1px);
+}
+
+.grid-line-light {
+	z-index: 1;
 	background-image:
 		linear-gradient(rgba(120, 53, 15, 0.26) 1px, transparent 1px),
 		linear-gradient(90deg, rgba(120, 53, 15, 0.26) 1px, transparent 1px);
-	background-size: 56px 56px;
 	opacity: var(--grid-light-opacity);
 	transition: opacity 220ms ease;
 	mask-image: radial-gradient(
@@ -73,12 +82,8 @@ a {
 	will-change: opacity, mask-image;
 }
 
-.site-grid > * {
+.site-grid > main,
+.site-grid > footer {
 	position: relative;
-	z-index: 1;
-}
-
-.site-grid > .grid-line-light {
-	position: absolute;
-	z-index: 0;
+	z-index: 2;
 }

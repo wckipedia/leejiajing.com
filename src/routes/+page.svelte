@@ -48,9 +48,9 @@
 		}
 	];
 	const socials = [
-		{ label: 'GitHub', href: 'https://github.com/' },
-		{ label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-		{ label: 'Email', href: 'mailto:hello@example.com' }
+		{ label: 'GitHub', href: 'https://github.com/', note: 'Projects and code' },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/', note: 'Professional profile' },
+		{ label: 'Email', href: 'mailto:leejiajing76@gmail.com', note: 'leejiajing76@gmail.com' }
 	];
 </script>
 
@@ -63,7 +63,6 @@
 </svelte:head>
 
 <section class="relative overflow-hidden">
-	<div class="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-white/55 to-transparent"></div>
 	<div
 		class="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16"
 	>
@@ -115,7 +114,7 @@
 			<ul class="relative h-[34rem]">
 				{#each technologies as technology (technology.name)}
 					<li
-						class="tech-bubble group flex flex-col items-center justify-center gap-2 rounded-full border border-stone-300/80 bg-[#f7f0e6]/80 p-4 text-center shadow-sm backdrop-blur-sm transition hover:z-10 hover:border-stone-500 hover:bg-[#fbf7ef] hover:shadow-md"
+						class="tech-bubble group flex flex-col items-center justify-center gap-2 rounded-full border border-stone-300/80 bg-[#f7f0e6] p-4 text-center shadow-sm transition hover:z-10 hover:border-stone-500 hover:bg-[#fbf7ef] hover:shadow-md"
 						style={`--x: ${technology.x}; --y: ${technology.y}; animation-delay: ${technology.delay};`}
 					>
 						<img class="size-9 shrink-0" src={technology.icon} alt="" loading="lazy" />
@@ -181,30 +180,21 @@
 </section>
 
 <section id="socials" class="mx-auto max-w-6xl scroll-mt-24 px-6 py-16">
-	<div class="grid gap-10 pt-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-		<SectionHeading
-			eyebrow="Socials"
-			title="Elsewhere on the web"
-			description="Quiet placeholders for profiles and contact routes while the portfolio grows."
-		/>
+	<SectionHeading
+		eyebrow="Socials"
+		title="Elsewhere on the web"
+		description="A few places to find me online."
+	/>
 
-		<ul class="divide-y divide-stone-300/80">
-			{#each socials as social, index (social.label)}
-				<li class="grid grid-cols-[3rem_1fr] items-center gap-4 py-4">
-					<span class="font-mono text-xs text-stone-400">
-						{String(index + 1).padStart(2, '0')}
-					</span>
-					<a
-						class="group flex items-center justify-between gap-4 text-sm font-semibold text-stone-700 transition hover:text-stone-950 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-offset-2 focus:ring-offset-[#f8f1e7]"
-						href={social.href}
-					>
-						{social.label}
-						<span class="font-mono text-xs text-stone-400 transition group-hover:translate-x-1 group-hover:text-stone-700">
-							->
-						</span>
-					</a>
-				</li>
-			{/each}
-		</ul>
+	<div class="mt-10 grid gap-4 sm:grid-cols-3">
+		{#each socials as social (social.label)}
+			<a
+				class="group flex min-h-28 flex-col justify-between border border-stone-300/80 bg-[#fbf7ef] px-5 py-5 transition hover:-translate-y-0.5 hover:border-stone-400 hover:bg-[#fffaf2] focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-offset-2 focus:ring-offset-[#f8f1e7]"
+				href={social.href}
+			>
+				<span class="text-lg font-bold tracking-[-0.02em] text-stone-950">{social.label}</span>
+				<span class="text-sm text-stone-500 transition group-hover:text-stone-700">{social.note}</span>
+			</a>
+		{/each}
 	</div>
 </section>

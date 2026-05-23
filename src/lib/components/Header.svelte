@@ -7,7 +7,7 @@
 	];
 </script>
 
-<header class="border-b border-stone-200/70 bg-[#f8f1e7]/90 backdrop-blur">
+<header class="fixed inset-x-0 top-0 z-50 border-b border-stone-200/70 bg-[#f8f1e7]/90 backdrop-blur">
 	<nav
 		class="mx-auto grid max-w-6xl gap-5 px-6 py-5 md:grid-cols-[1fr_auto_1fr] md:items-center"
 		aria-label="Primary navigation"
