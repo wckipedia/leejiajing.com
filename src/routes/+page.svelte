@@ -86,20 +86,6 @@
 				Software engineer building simple, thoughtful web experiences with a focus on clear
 				interfaces, useful systems, and polished details.
 			</p>
-			<div class="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-				<a
-					href="/#projects"
-					class="inline-flex items-center justify-center rounded-full bg-stone-950 px-6 py-3 text-sm font-semibold text-stone-50 shadow-sm transition hover:-translate-y-0.5 hover:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-offset-2 focus:ring-offset-[#f8f1e7]"
-				>
-					View Projects
-				</a>
-				<a
-					href="/contact"
-					class="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white/55 px-6 py-3 text-sm font-semibold text-stone-800 shadow-sm transition hover:-translate-y-0.5 hover:border-stone-400 hover:bg-white focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-offset-2 focus:ring-offset-[#f8f1e7]"
-				>
-					Get in Touch
-				</a>
-			</div>
 		</div>
 	</div>
 </section>
@@ -185,9 +171,9 @@
 	<SectionHeading
 		eyebrow="Projects"
 		title="Selected work"
-		description="A few understated project cards remain here as extension points for real case studies."
+		description="A small edit of project work, presented as quiet tiles with room for the details to breathe."
 	/>
-	<div class="mt-10 divide-y divide-stone-300/80 border-y border-stone-300/80">
+	<div class="mt-10 grid items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-3">
 		{#each featuredProjects as project (project.title)}
 			<ProjectCard {project} />
 		{/each}

@@ -5,19 +5,11 @@
 
 	let { children }: { children: Snippet } = $props();
 
-	const gridSize = 56;
-	const gridCells = Array.from({ length: 1400 }, (_, index) => index);
-
-	function gridTrail(node: HTMLDivElement) {
+	function gridLight(node: HTMLDivElement) {
 		let frame = 0;
-		let lastCell = -1;
 		let pointer: PointerEvent | null = null;
 
-		function clearCell(cell: number) {
-			node.children.item(cell)?.classList.remove('is-active');
-		}
-
-		function paintCell() {
+		function paintLight() {
 			frame = 0;
 
 			if (!pointer) {
@@ -25,56 +17,44 @@
 			}
 
 			const rect = node.getBoundingClientRect();
-			const columns = Math.max(1, Math.floor(node.clientWidth / gridSize));
-			const column = Math.floor((pointer.clientX - rect.left) / gridSize);
-			const row = Math.floor((pointer.clientY - rect.top) / gridSize);
-			const cell = row * columns + column;
-
-			if (column < 0 || column >= columns || cell < 0 || cell >= gridCells.length || cell === lastCell) {
-				return;
-			}
-
-			clearCell(lastCell);
-			lastCell = cell;
-			node.children.item(cell)?.classList.add('is-active');
+			node.style.setProperty('--grid-light-x', `${pointer.clientX - rect.left}px`);
+			node.style.setProperty('--grid-light-y', `${pointer.clientY - rect.top}px`);
+			node.style.setProperty('--grid-light-opacity', '1');
 		}
 
 		function handlePointerMove(event: PointerEvent) {
 			pointer = event;
 
 			if (!frame) {
-				frame = requestAnimationFrame(paintCell);
+				frame = requestAnimationFrame(paintLight);
 			}
 		}
 
-		function clearTrail() {
+		function clearLight() {
 			if (frame) {
 				cancelAnimationFrame(frame);
 			}
 
 			frame = 0;
-			clearCell(lastCell);
-			lastCell = -1;
 			pointer = null;
+			node.style.setProperty('--grid-light-opacity', '0');
 		}
 
 		window.addEventListener('pointermove', handlePointerMove);
-		window.addEventListener('blur', clearTrail);
+		window.addEventListener('blur', clearLight);
+		window.addEventListener('pointerleave', clearLight);
 
 		return () => {
 			window.removeEventListener('pointermove', handlePointerMove);
-			window.removeEventListener('blur', clearTrail);
-			clearTrail();
+			window.removeEventListener('blur', clearLight);
+			window.removeEventListener('pointerleave', clearLight);
+			clearLight();
 		};
 	}
 </script>
 
-<div class="site-grid flex min-h-screen flex-col bg-[#f7f0e6] text-stone-900">
-	<div class="grid-hover-cells" aria-hidden="true" {@attach gridTrail}>
-		{#each gridCells as cell (cell)}
-			<span></span>
-		{/each}
-	</div>
+<div class="site-grid flex min-h-screen flex-col bg-[#f7f0e6] text-stone-900" {@attach gridLight}>
+	<div class="grid-line-light" aria-hidden="true"></div>
 
 	<Header />
 
