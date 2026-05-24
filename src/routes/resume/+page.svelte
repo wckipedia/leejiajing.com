@@ -59,11 +59,11 @@
 		<section aria-labelledby="education-heading">
 			<h2 id="education-heading" class="text-2xl font-semibold text-stone-950">Education</h2>
 			<div class="mt-6 space-y-4">
-				{#each education as item (item.school)}
+				{#each education as item (item.organization)}
 					<article class="rounded-3xl border border-stone-200 bg-white/50 p-6">
 						<p class="text-sm font-semibold text-amber-800">{item.period}</p>
-						<h3 class="mt-2 text-xl font-semibold text-stone-950">{item.school}</h3>
-						<p class="mt-2 text-stone-600">{item.program}</p>
+						<h3 class="mt-2 text-xl font-semibold text-stone-950">{item.organization}</h3>
+						<p class="mt-2 text-stone-600">{item.role}</p>
 					</article>
 				{/each}
 			</div>

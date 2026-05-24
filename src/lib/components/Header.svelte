@@ -1,9 +1,8 @@
 <script lang="ts">
 	const links = [
 		{ href: '/#skills', label: 'Skills' },
-		{ href: '/#education', label: 'Education' },
-		{ href: '/#projects', label: 'Projects' },
-		{ href: '/#socials', label: 'Socials' }
+		{ href: '/#experience', label: 'Experience' },
+		{ href: '/#projects', label: 'Projects' }
 	];
 </script>
 

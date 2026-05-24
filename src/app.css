@@ -17,6 +17,22 @@ a {
 	text-underline-offset: 0.2em;
 }
 
+@keyframes toast-in {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.copy-toast {
+	animation: toast-in 0.22s ease-out;
+}
+
 @keyframes tech-float {
 	0%,
 	100% {

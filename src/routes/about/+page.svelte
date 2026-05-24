@@ -69,11 +69,11 @@
 		<div>
 			<SectionHeading eyebrow="Education" title="Education preview" />
 			<div class="mt-6 space-y-4">
-				{#each education as item (item.school)}
+				{#each education as item (item.organization)}
 					<article class="rounded-2xl border border-stone-200 bg-white/50 px-5 py-4">
 						<p class="text-sm font-semibold text-amber-800">{item.period}</p>
-						<h3 class="mt-2 font-semibold text-stone-950">{item.school}</h3>
-						<p class="mt-1 text-stone-600">{item.program}</p>
+						<h3 class="mt-2 font-semibold text-stone-950">{item.organization}</h3>
+						<p class="mt-1 text-stone-600">{item.role}</p>
 					</article>
 				{/each}
 			</div>

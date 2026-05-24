@@ -9,6 +9,14 @@ export type Project = {
 	featured?: boolean;
 };
 
+export type TimelineEntry = {
+	organization: string;
+	role: string;
+	period: string;
+	logo?: string;
+	highlights: string[];
+};
+
 export const projects: Project[] = [
 	{
 		title: 'Portfolio Starter',
@@ -48,20 +56,54 @@ export const skills = [
 	'Product thinking'
 ];
 
-export const education = [
+export const work: TimelineEntry[] = [
 	{
-		school: 'Placeholder University',
-		program: 'Degree or program name',
-		period: '2023 - Present'
+		organization: 'Placeholder Company',
+		role: 'Software Engineer Intern',
+		period: '2024 — Present',
+		highlights: [
+			'Built internal tools with TypeScript and modern frontend frameworks.',
+			'Collaborated with design on accessible, responsive interface patterns.',
+			'Improved workflow reliability through testing and code review.'
+		]
 	},
 	{
-		school: 'Relevant Coursework',
-		program: 'Web development, software engineering, databases, and human-computer interaction',
-		period: '2024'
+		organization: 'Freelance / Personal Projects',
+		role: 'Frontend Developer',
+		period: '2023 — Present',
+		highlights: [
+			'Shipped portfolio and side projects with SvelteKit and Tailwind CSS.',
+			'Focused on clean layout, performance, and thoughtful interaction design.'
+		]
+	}
+];
+
+export const education: TimelineEntry[] = [
+	{
+		organization: 'Placeholder University',
+		role: 'B.Sc. Computer Science (or related program)',
+		period: '2023 — Present',
+		highlights: [
+			'Coursework in web development, software engineering, and databases.',
+			'Applied classroom concepts through team projects and lab work.'
+		]
 	},
 	{
-		school: 'Self-Directed Learning',
-		program: 'Building projects with SvelteKit, TypeScript, Tailwind CSS, and modern frontend tools',
-		period: 'Ongoing'
+		organization: 'Relevant Coursework',
+		role: 'Selected areas of study',
+		period: '2024',
+		highlights: [
+			'Web development, human-computer interaction, and data structures.',
+			'Practical focus on building usable, well-structured applications.'
+		]
+	},
+	{
+		organization: 'Self-Directed Learning',
+		role: 'Independent study',
+		period: 'Ongoing',
+		highlights: [
+			'Building projects with SvelteKit, TypeScript, and Tailwind CSS.',
+			'Exploring modern frontend tooling, design systems, and UI polish.'
+		]
 	}
 ];

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { education, projects } from '$lib/data/portfolio';
-	import { ProjectCard, SectionHeading } from '$lib/components';
+	import { education, projects, work } from '$lib/data/portfolio';
+	import { ExperienceTimeline, ProjectCard, SectionHeading } from '$lib/components';
 
 	const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
 	const technologies = [
@@ -47,11 +47,43 @@
 			delay: '-4200ms'
 		}
 	];
-	const socials = [
-		{ label: 'GitHub', href: 'https://github.com/', note: 'Projects and code' },
-		{ label: 'LinkedIn', href: 'https://www.linkedin.com/', note: 'Professional profile' },
-		{ label: 'Email', href: 'mailto:leejiajing76@gmail.com', note: 'leejiajing76@gmail.com' }
-	];
+
+	const emailAddress = 'leejiajing76@gmail.com';
+
+	const socialLinks = [
+		{
+			label: 'GitHub',
+			href: 'https://github.com/',
+			icon: 'github'
+		},
+		{
+			label: 'LinkedIn',
+			href: 'https://www.linkedin.com/',
+			icon: 'linkedin'
+		}
+	] as const;
+
+	const heroActionClass =
+		'flex size-11 items-center justify-center rounded-md border border-stone-300/80 bg-[#fbf7ef] text-stone-600 transition hover:border-stone-400 hover:bg-white hover:text-stone-950 active:scale-95 focus:outline-none';
+
+	const heroResumeClass =
+		'inline-flex h-11 items-center gap-2 rounded-md border border-stone-300/80 bg-[#fbf7ef] px-3.5 text-sm font-semibold text-stone-700 transition hover:border-stone-400 hover:bg-white hover:text-stone-950 active:scale-[0.98] focus:outline-none';
+
+	let emailCopied = $state(false);
+	let emailCopyTimeout: ReturnType<typeof setTimeout> | undefined;
+
+	async function copyEmail() {
+		try {
+			await navigator.clipboard.writeText(emailAddress);
+			emailCopied = true;
+			clearTimeout(emailCopyTimeout);
+			emailCopyTimeout = setTimeout(() => {
+				emailCopied = false;
+			}, 2400);
+		} catch {
+			window.location.href = `mailto:${emailAddress}`;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -85,9 +117,89 @@
 				Software engineer building simple, thoughtful web experiences with a focus on clear
 				interfaces, useful systems, and polished details.
 			</p>
+
+			<div class="mt-8 flex flex-wrap items-center justify-center gap-2.5 lg:justify-start">
+					<a
+						class={heroResumeClass}
+						href="/resume.pdf"
+						download="Lee_Jia_Jing_Resume.pdf"
+					>
+						<svg
+							class="size-4 shrink-0"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.75"
+							aria-hidden="true"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M12 4v10m0 0 4-4m-4 4-4-4M5 20h14"
+							/>
+						</svg>
+						Download resume
+					</a>
+
+					{#each socialLinks as link (link.label)}
+						<a
+							class={heroActionClass}
+							href={link.href}
+							aria-label={link.label}
+							target="_blank"
+							rel="noreferrer"
+						>
+							{#if link.icon === 'github'}
+								<svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+									<path
+										d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
+									/>
+								</svg>
+							{:else}
+								<svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+									<path
+										d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+									/>
+								</svg>
+							{/if}
+						</a>
+					{/each}
+
+					<button
+						type="button"
+						class={heroActionClass}
+						aria-label="Copy email address"
+						onclick={copyEmail}
+					>
+						<svg
+							class="size-5"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.75"
+							aria-hidden="true"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M4 6h16v12H4V6zm0 0 8 7 8-7"
+							/>
+						</svg>
+					</button>
+			</div>
 		</div>
 	</div>
 </section>
+
+{#if emailCopied}
+	<p
+		class="copy-toast fixed bottom-6 left-6 z-[60] rounded-md border border-stone-300/80 bg-[#fbf7ef] px-4 py-2 text-sm font-medium text-stone-800 shadow-md"
+		role="status"
+		aria-live="polite"
+	>
+		Email copied to clipboard
+	</p>
+{/if}
 
 <section id="skills" class="mx-auto max-w-6xl scroll-mt-24 px-6 py-16">
 	<div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
@@ -97,20 +209,7 @@
 			description="A visual index of the languages, frameworks, and tools I reach for when building web experiences."
 		/>
 
-		<div class="relative min-h-[34rem] overflow-hidden border-b border-stone-300/80">
-			<div
-				class="absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-stone-300/80"
-				aria-hidden="true"
-			></div>
-			<div
-				class="absolute left-[15%] right-[15%] top-1/2 border-t border-dashed border-stone-300/70"
-				aria-hidden="true"
-			></div>
-			<div
-				class="absolute bottom-[18%] left-1/2 top-[18%] border-l border-dashed border-stone-300/70"
-				aria-hidden="true"
-			></div>
-
+		<div class="relative min-h-[34rem] overflow-hidden">
 			<ul class="relative h-[34rem]">
 				{#each technologies as technology (technology.name)}
 					<li
@@ -128,42 +227,14 @@
 	</div>
 </section>
 
-<section id="education" class="mx-auto max-w-6xl scroll-mt-24 px-6 py-16">
+<section id="experience" class="mx-auto max-w-6xl scroll-mt-24 px-6 py-16">
 	<SectionHeading
-		eyebrow="Education"
-		title="Learning timeline"
-		description="A simple timeline for education, coursework, and the experiences shaping Lee Jia Jing's work."
+		eyebrow="Experience"
+		title="Work and education"
+		description="A timeline of roles, studies, and the work that shaped how I build software."
 	/>
 
-	<div class="relative mt-12">
-		<div class="absolute bottom-0 left-4 top-0 w-px bg-stone-300 sm:left-1/2 sm:-translate-x-1/2"></div>
-
-		<div class="space-y-10">
-			{#each education as item, index (item.school)}
-				<article class="relative grid gap-5 sm:grid-cols-2 sm:gap-10">
-					<div
-						class={[
-							'pl-12 sm:pl-0',
-							index % 2 === 0 ? 'sm:text-right' : 'sm:col-start-2'
-						]}
-					>
-						<p class="text-sm font-semibold uppercase tracking-[0.25em] text-amber-900/80">
-							{item.period}
-						</p>
-						<h3 class="mt-3 text-2xl font-bold tracking-[-0.03em] text-stone-950">
-							{item.school}
-						</h3>
-						<p class="mt-3 text-base font-medium leading-7 text-stone-600">{item.program}</p>
-					</div>
-
-					<span
-						class="absolute left-4 top-2 size-3 -translate-x-1/2 rounded-full border-2 border-[#f7f0e6] bg-stone-950 sm:left-1/2"
-						aria-hidden="true"
-					></span>
-				</article>
-			{/each}
-		</div>
-	</div>
+	<ExperienceTimeline {work} {education} />
 </section>
 
 <section id="projects" class="mx-auto max-w-6xl scroll-mt-24 px-6 py-16">
@@ -175,26 +246,6 @@
 	<div class="mt-10 grid items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-3">
 		{#each featuredProjects as project (project.title)}
 			<ProjectCard {project} />
-		{/each}
-	</div>
-</section>
-
-<section id="socials" class="mx-auto max-w-6xl scroll-mt-24 px-6 py-16">
-	<SectionHeading
-		eyebrow="Socials"
-		title="Elsewhere on the web"
-		description="A few places to find me online."
-	/>
-
-	<div class="mt-10 grid gap-4 sm:grid-cols-3">
-		{#each socials as social (social.label)}
-			<a
-				class="group flex min-h-28 flex-col justify-between border border-stone-300/80 bg-[#fbf7ef] px-5 py-5 transition hover:-translate-y-0.5 hover:border-stone-400 hover:bg-[#fffaf2] focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-offset-2 focus:ring-offset-[#f8f1e7]"
-				href={social.href}
-			>
-				<span class="text-lg font-bold tracking-[-0.02em] text-stone-950">{social.label}</span>
-				<span class="text-sm text-stone-500 transition group-hover:text-stone-700">{social.note}</span>
-			</a>
 		{/each}
 	</div>
 </section>
