@@ -13,6 +13,10 @@ body {
 	overscroll-behavior-y: none;
 }
 
+html {
+	scroll-behavior: auto;
+}
+
 a {
 	text-underline-offset: 0.2em;
 }
@@ -48,7 +52,7 @@ a {
 	position: absolute;
 	top: var(--y);
 	left: var(--x);
-	--bubble-size: 8.75rem;
+	--bubble-size: 8rem;
 	width: var(--bubble-size);
 	height: var(--bubble-size);
 	animation: tech-float 7s ease-in-out infinite;
