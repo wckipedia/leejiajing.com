@@ -52,15 +52,25 @@
 		</button>
 	</div>
 
-	<div class="mt-10 space-y-12" role="tabpanel">
-		{#each entries as entry (entry.organization + entry.period)}
-			<article class="space-y-4">
+	<div class="mt-10" role="tabpanel">
+		{#each entries as entry, i (entry.organization + entry.period)}
+			<article
+				class="rounded-[1.35rem] border border-stone-300/80 bg-[#fbf7ef] p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-amber-900/35 hover:bg-[#fffaf2] hover:shadow-md sm:p-6"
+			>
 				<div class="flex items-start gap-4 sm:gap-5">
 					<div
-						class="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-stone-300/80 bg-[#fbf7ef] sm:size-14"
+						class="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-stone-300/80 sm:size-14"
+						class:bg-[#fbf7ef]={!entry.logoFill}
 					>
 						{#if entry.logo}
-							<img class="size-full object-contain p-2" src={entry.logo} alt="" loading="lazy" />
+							<img
+								class={entry.logoFill
+									? 'size-full object-cover'
+									: 'size-full object-contain p-1.5'}
+								src={entry.logo}
+								alt=""
+								loading="lazy"
+							/>
 						{:else}
 							<span class="text-lg font-bold text-stone-700 sm:text-xl">
 								{entry.organization.charAt(0)}
@@ -85,7 +95,7 @@
 					</div>
 				</div>
 
-				<ul class="space-y-2 pl-16 sm:pl-[4.75rem]">
+				<ul class="mt-4 space-y-2 pl-16 sm:pl-[4.75rem]">
 					{#each entry.highlights as highlight (highlight)}
 						<li class="flex gap-3 text-base leading-7">
 							<span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-stone-400" aria-hidden="true"></span>
@@ -94,6 +104,15 @@
 					{/each}
 				</ul>
 			</article>
+
+			{#if i < entries.length - 1}
+				<div class="py-1 pl-[2.75rem] sm:pl-[3.25rem]">
+					<div
+						class="timeline-connector h-10 w-1 rounded-full bg-stone-950"
+						style="animation-delay: {i * 0.5}s;"
+					></div>
+				</div>
+			{/if}
 		{/each}
 	</div>
 </div>

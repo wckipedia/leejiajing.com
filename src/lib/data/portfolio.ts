@@ -1,6 +1,7 @@
 export type Project = {
 	title: string;
 	description: string;
+	details?: string;
 	tech: string[];
 	links?: {
 		github?: string;
@@ -14,6 +15,7 @@ export type TimelineEntry = {
 	role: string;
 	period: string;
 	logo?: string;
+	logoFill?: boolean;
 	highlights: string[];
 };
 
@@ -21,6 +23,7 @@ export const projects: Project[] = [
 	{
 		title: 'Portfolio Starter',
 		description: 'A personal website foundation with reusable sections, project cards, and Tailwind styling.',
+		details: 'A fully responsive portfolio built from the ground up with SvelteKit and Tailwind CSS. Features smooth scroll-snap navigation, animated skill bubbles, and a timeline-based experience section. Designed with accessibility and performance in mind.',
 		tech: ['SvelteKit', 'Svelte 5', 'Tailwind CSS'],
 		links: {
 			github: 'https://github.com/',
@@ -31,18 +34,21 @@ export const projects: Project[] = [
 	{
 		title: 'Campus Companion',
 		description: 'A placeholder student-life product concept for organizing events, resources, and reminders.',
+		details: 'A concept application designed to help students organize campus events, manage resources, and set reminders. Focused on user research and prototyping to validate the idea before development.',
 		tech: ['TypeScript', 'UX Research', 'Prototyping'],
 		featured: true
 	},
 	{
 		title: 'Learning Journal',
 		description: 'A lightweight writing space for documenting experiments, notes, and project reflections.',
+		details: 'A minimalist journaling tool for developers to document experiments, take notes, and reflect on projects. Built with a Markdown-first approach and a clean design system for consistent styling.',
 		tech: ['SvelteKit', 'Markdown', 'Design Systems'],
 		featured: true
 	},
 	{
 		title: 'Data Dashboard Concept',
 		description: 'A visual dashboard placeholder for turning raw information into clear, actionable insights.',
+		details: 'A dashboard concept focused on presenting complex data in an accessible, visual format. Designed with chart accessibility and responsive frontend architecture principles.',
 		tech: ['Charts', 'Accessibility', 'Frontend Architecture']
 	}
 ];
@@ -80,30 +86,35 @@ export const work: TimelineEntry[] = [
 
 export const education: TimelineEntry[] = [
 	{
-		organization: 'Placeholder University',
-		role: 'B.Sc. Computer Science (or related program)',
-		period: '2023 — Present',
+		organization: 'Republic Polytechnic',
+		role: 'Diploma in Information Technology',
+		period: '2024 — 2027',
+		logo: '/images/rp logo.avif',
 		highlights: [
 			'Coursework in web development, software engineering, and databases.',
 			'Applied classroom concepts through team projects and lab work.'
 		]
 	},
 	{
-		organization: 'Relevant Coursework',
-		role: 'Selected areas of study',
-		period: '2024',
+		organization: 'Institute of Technical Education',
+		role: 'Higher National ITE Certificate in Cyber & Network Security',
+		period: '2022 — 2023',
+		logo: '/images/ite logo.png',
+		logoFill: true,
 		highlights: [
-			'Web development, human-computer interaction, and data structures.',
-			'Practical focus on building usable, well-structured applications.'
+			'Studied network security fundamentals, threat analysis, and defence strategies.',
+			'Gained hands-on experience with security tools and protocols.'
 		]
 	},
 	{
-		organization: 'Self-Directed Learning',
-		role: 'Independent study',
-		period: 'Ongoing',
+		organization: 'Institute of Technical Education',
+		role: 'National ITE Certificate in Information Technology',
+		period: '2021 — 2022',
+		logo: '/images/ite logo.png',
+		logoFill: true,
 		highlights: [
-			'Building projects with SvelteKit, TypeScript, and Tailwind CSS.',
-			'Exploring modern frontend tooling, design systems, and UI polish.'
+			'Built a foundation in IT fundamentals, programming, and system administration.',
+			'Developed practical skills through coursework and project-based learning.'
 		]
 	}
 ];

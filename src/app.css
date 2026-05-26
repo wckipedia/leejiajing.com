@@ -37,6 +37,85 @@ a {
 	animation: toast-in 0.22s ease-out;
 }
 
+@keyframes timeline-draw {
+	from {
+		transform: scaleY(0);
+		opacity: 0;
+	}
+
+	to {
+		transform: scaleY(1);
+		opacity: 1;
+	}
+}
+
+.timeline-connector {
+	transform-origin: top center;
+	animation: timeline-draw 0.6s ease-out both;
+}
+
+.project-overlay {
+	backdrop-filter: blur(0px);
+	background: transparent;
+}
+
+.overlay-in {
+	animation: overlay-focus 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.overlay-out {
+	animation: overlay-unfocus 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes overlay-focus {
+	to {
+		backdrop-filter: blur(6px);
+		background: rgba(0, 0, 0, 0.25);
+	}
+}
+
+.expanded-extra {
+	max-height: 0;
+	opacity: 0;
+}
+
+.expanded-extra-in {
+	animation: extra-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.expanded-extra-out {
+	animation: extra-hide 0.2s ease-in forwards;
+}
+
+@keyframes extra-reveal {
+	to {
+		max-height: 20rem;
+		opacity: 1;
+	}
+}
+
+@keyframes extra-hide {
+	from {
+		max-height: 20rem;
+		opacity: 1;
+	}
+	to {
+		max-height: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes overlay-unfocus {
+	from {
+		backdrop-filter: blur(6px);
+		background: rgba(0, 0, 0, 0.25);
+	}
+	to {
+		backdrop-filter: blur(0px);
+		background: transparent;
+	}
+}
+
 @keyframes tech-float {
 	0%,
 	100% {
