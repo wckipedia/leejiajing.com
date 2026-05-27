@@ -16,6 +16,8 @@ export type TimelineEntry = {
 	period: string;
 	logo?: string;
 	logoFill?: boolean;
+	/** Less inset + scale so small wordmarks read clearly in the logo box */
+	logoLarge?: boolean;
 	highlights: string[];
 };
 
@@ -64,22 +66,26 @@ export const skills = [
 
 export const work: TimelineEntry[] = [
 	{
-		organization: 'Placeholder Company',
-		role: 'Software Engineer Intern',
-		period: '2024 — Present',
+		organization: 'Nanyang Technological University',
+		role: 'Desktop Support',
+		period: 'Jul 2023 — Nov 2023',
+		logo: '/images/ntu logo.svg.png',
 		highlights: [
-			'Built internal tools with TypeScript and modern frontend frameworks.',
-			'Collaborated with design on accessible, responsive interface patterns.',
-			'Improved workflow reliability through testing and code review.'
+			'Assisted with onboarding and offboarding of staff devices.',
+			'Configured laptops with required software and set up office equipment for new users.',
+			'Performed secure data wiping on decommissioned hard drives.',
+			'Provided on-site technical support for hardware and software issues.'
 		]
 	},
 	{
-		organization: 'Freelance / Personal Projects',
-		role: 'Frontend Developer',
-		period: '2023 — Present',
+		organization: 'Indoguna Singapore',
+		role: 'Data Entry & Desktop Support',
+		period: 'May 2022 — Nov 2022',
+		logo: '/images/indoguna logo.webp',
+		logoLarge: true,
 		highlights: [
-			'Shipped portfolio and side projects with SvelteKit and Tailwind CSS.',
-			'Focused on clean layout, performance, and thoughtful interaction design.'
+			'Supported SAP system migration through data entry, cleansing, and validation.',
+			'Joined the IT Help Desk to assist users with troubleshooting, system training, and process improvements.'
 		]
 	}
 ];

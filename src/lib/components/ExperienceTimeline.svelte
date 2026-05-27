@@ -14,6 +14,42 @@
 	let activeTab = $state<Tab>('education');
 
 	const entries = $derived(activeTab === 'work' ? work : education);
+
+	/** Tile / line durations — match `app.css` */
+	const TILE_SEC = 0.42;
+	const LINE_SEC = 0.18;
+	/** All tiles in sequence, then all connector lines. */
+	const TILE_STAGGER = 0.16;
+	const LINE_STAGGER = 0.1;
+	const SEED_SEC = 0.06;
+	const PHASE_GAP = 0.1;
+
+	let panelEl: HTMLDivElement | undefined = $state();
+	let panelInView = $state(false);
+
+	function checkPanelInViewport() {
+		if (!panelEl) return false;
+		const r = panelEl.getBoundingClientRect();
+		const vh = window.innerHeight;
+		return r.top < vh * 0.88 && r.bottom > vh * 0.12;
+	}
+
+	$effect(() => {
+		if (!panelEl) return;
+		const io = new IntersectionObserver(
+			([e]) => {
+				if (e?.isIntersecting) panelInView = true;
+			},
+			{ threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+		);
+		io.observe(panelEl);
+		return () => io.disconnect();
+	});
+
+	$effect(() => {
+		void activeTab;
+		if (checkPanelInViewport()) panelInView = true;
+	});
 </script>
 
 <div class="mt-10">
@@ -52,10 +88,17 @@
 		</button>
 	</div>
 
-	<div class="mt-10" role="tabpanel">
-		{#each entries as entry, i (entry.organization + entry.period)}
+	<div
+		bind:this={panelEl}
+		class="mt-10"
+		class:timeline-panel-inview={panelInView}
+		role="tabpanel"
+	>
+		{#key activeTab}
+			{#each entries as entry, i (entry.organization + entry.period)}
 			<article
-				class="rounded-[1.35rem] border border-stone-300/80 bg-[#fbf7ef] p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-amber-900/35 hover:bg-[#fffaf2] hover:shadow-md sm:p-6"
+				class="timeline-tile rounded-[1.35rem] border border-stone-300/80 bg-[#fbf7ef] p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-amber-900/35 hover:bg-[#fffaf2] hover:shadow-md sm:p-6"
+				style="--tile-delay: {SEED_SEC + i * TILE_STAGGER}s;"
 			>
 				<div class="flex items-start gap-4 sm:gap-5">
 					<div
@@ -66,7 +109,9 @@
 							<img
 								class={entry.logoFill
 									? 'size-full object-cover'
-									: 'size-full object-contain p-1.5'}
+									: entry.logoLarge
+										? 'size-full object-contain p-0.5 scale-[1.45]'
+										: 'size-full object-contain p-1.5'}
 								src={entry.logo}
 								alt=""
 								loading="lazy"
@@ -109,10 +154,11 @@
 				<div class="py-1 pl-[2.75rem] sm:pl-[3.25rem]">
 					<div
 						class="timeline-connector h-10 w-1 rounded-full bg-stone-950"
-						style="animation-delay: {i * 0.5}s;"
+						style="--connector-delay: {SEED_SEC + (entries.length - 1) * TILE_STAGGER + TILE_SEC + PHASE_GAP + i * LINE_STAGGER}s;"
 					></div>
 				</div>
 			{/if}
-		{/each}
+			{/each}
+		{/key}
 	</div>
 </div>

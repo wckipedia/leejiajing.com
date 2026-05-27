@@ -37,21 +37,65 @@ a {
 	animation: toast-in 0.22s ease-out;
 }
 
-@keyframes timeline-draw {
+@keyframes timeline-line-reveal {
 	from {
-		transform: scaleY(0);
 		opacity: 0;
+		transform: scaleY(0.35);
 	}
 
 	to {
-		transform: scaleY(1);
 		opacity: 1;
+		transform: scaleY(1);
+	}
+}
+
+@keyframes timeline-tile-reveal {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 14px, 0) scale(0.985);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scale(1);
 	}
 }
 
 .timeline-connector {
+	opacity: 0;
+	transform: scaleY(0.35);
 	transform-origin: top center;
-	animation: timeline-draw 0.6s ease-out both;
+}
+
+.timeline-panel-inview .timeline-connector {
+	animation: timeline-line-reveal 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+	animation-delay: var(--connector-delay, 0s);
+}
+
+.timeline-tile {
+	opacity: 0;
+	transform: translate3d(0, 14px, 0) scale(0.985);
+}
+
+.timeline-panel-inview .timeline-tile {
+	animation: timeline-tile-reveal 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+	animation-delay: var(--tile-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.timeline-connector,
+	.timeline-tile {
+		opacity: 1;
+		transform: none;
+		animation: none;
+	}
+
+	.timeline-panel-inview .timeline-connector,
+	.timeline-panel-inview .timeline-tile {
+		opacity: 1;
+		transform: none;
+		animation: none;
+	}
 }
 
 .project-overlay {
