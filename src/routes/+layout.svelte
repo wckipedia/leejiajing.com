@@ -52,13 +52,13 @@
 	}
 </script>
 
-<div class="site-grid flex min-h-screen flex-col text-stone-900" {@attach gridLight}>
+<div class="site-grid flex min-h-screen flex-col overflow-x-clip text-stone-900" {@attach gridLight}>
 	<div class="grid-backdrop" aria-hidden="true"></div>
 	<div class="grid-line-light" aria-hidden="true"></div>
 
 	<Header />
 
-	<main class="flex-1 pt-24">
+	<main class="flex-1 pt-[4.5rem] sm:pt-20 md:pt-24">
 		{@render children()}
 	</main>
 

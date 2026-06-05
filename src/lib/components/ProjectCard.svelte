@@ -32,8 +32,8 @@
 	}
 
 	const centerStyle = `
-		top: 50%; left: 50%; width: min(42rem, calc(100vw - 3rem)); height: auto;
-		transform: translate(-50%, -50%);
+		top: 50%; left: 50%; width: min(42rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); height: auto;
+		transform: translate(-50%, -50%); overflow-y: auto;
 	`;
 
 	const openTransition = `transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);`;
@@ -90,7 +90,7 @@
 
 <article
 	bind:this={cardEl}
-	class="group relative flex h-full min-h-[24rem] cursor-pointer flex-col overflow-hidden rounded-[1.35rem] border border-stone-300/80 bg-[#fbf7ef] p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-amber-900/35 hover:bg-[#fffaf2] hover:shadow-md sm:p-6"
+	class="group relative flex h-full min-h-[20rem] cursor-pointer flex-col overflow-hidden rounded-[1.35rem] border border-stone-300/80 bg-[#fbf7ef] p-4 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-amber-900/35 hover:bg-[#fffaf2] hover:shadow-md sm:min-h-[24rem] sm:p-6"
 	class:invisible={expanded}
 	onclick={openCard}
 	onkeydown={(e) => e.key === 'Enter' && openCard()}
@@ -101,7 +101,7 @@
 		<p class="font-mono text-xs uppercase tracking-[0.25em] text-amber-900/75">
 			{project.featured ? 'Featured' : 'Project'}
 		</p>
-		<h3 class="mt-3 text-2xl font-bold tracking-[-0.035em] text-stone-950">
+		<h3 class="mt-3 text-xl font-bold tracking-[-0.035em] text-stone-950 sm:text-2xl">
 			{project.title}
 		</h3>
 
@@ -166,7 +166,7 @@
 					</button>
 				</div>
 
-				<h3 class="mt-3 text-2xl font-bold tracking-[-0.035em] text-stone-950">
+				<h3 class="mt-3 text-xl font-bold tracking-[-0.035em] text-stone-950 sm:text-2xl">
 					{project.title}
 				</h3>
 

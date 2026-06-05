@@ -52,9 +52,9 @@
 	});
 </script>
 
-<div class="mt-10">
+<div class="mt-8 sm:mt-10">
 	<div
-		class="inline-flex overflow-hidden rounded-md border border-stone-300/80 bg-[#f7f0e6]"
+		class="inline-flex w-full overflow-hidden rounded-md border border-stone-300/80 bg-[#f7f0e6] sm:w-auto"
 		role="tablist"
 		aria-label="Experience category"
 	>
@@ -63,7 +63,7 @@
 			role="tab"
 			aria-selected={activeTab === 'education'}
 			class={[
-				'px-5 py-2.5 text-sm font-semibold transition focus:outline-none active:scale-[0.98]',
+				'flex-1 px-4 py-2.5 text-sm font-semibold transition focus:outline-none active:scale-[0.98] sm:flex-none sm:px-5',
 				activeTab === 'education'
 					? 'bg-stone-950 text-stone-50'
 					: 'text-stone-600 hover:bg-white/60 hover:text-stone-950'
@@ -77,7 +77,7 @@
 			role="tab"
 			aria-selected={activeTab === 'work'}
 			class={[
-				'border-l border-stone-300/80 px-5 py-2.5 text-sm font-semibold transition focus:outline-none active:scale-[0.98]',
+				'flex-1 border-l border-stone-300/80 px-4 py-2.5 text-sm font-semibold transition focus:outline-none active:scale-[0.98] sm:flex-none sm:px-5',
 				activeTab === 'work'
 					? 'bg-stone-950 text-stone-50'
 					: 'text-stone-600 hover:bg-white/60 hover:text-stone-950'
@@ -97,7 +97,7 @@
 		{#key activeTab}
 			{#each entries as entry, i (entry.organization + entry.period)}
 			<article
-				class="timeline-tile rounded-[1.35rem] border border-stone-300/80 bg-[#fbf7ef] p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-amber-900/35 hover:bg-[#fffaf2] hover:shadow-md sm:p-6"
+				class="timeline-tile rounded-[1.35rem] border border-stone-300/80 bg-[#fbf7ef] p-4 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-amber-900/35 hover:bg-[#fffaf2] hover:shadow-md sm:p-6"
 				style="--tile-delay: {SEED_SEC + i * TILE_STAGGER}s;"
 			>
 				<div class="flex items-start gap-4 sm:gap-5">
@@ -140,7 +140,7 @@
 					</div>
 				</div>
 
-				<ul class="mt-4 space-y-2 pl-16 sm:pl-[4.75rem]">
+				<ul class="mt-4 space-y-2 pl-0 sm:pl-[4.75rem]">
 					{#each entry.highlights as highlight (highlight)}
 						<li class="flex gap-3 text-base leading-7">
 							<span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-stone-400" aria-hidden="true"></span>
@@ -151,7 +151,7 @@
 			</article>
 
 			{#if i < entries.length - 1}
-				<div class="py-1 pl-[2.75rem] sm:pl-[3.25rem]">
+				<div class="py-1 pl-[1.375rem] sm:pl-[3.25rem]">
 					<div
 						class="timeline-connector h-10 w-1 rounded-full bg-stone-950"
 						style="--connector-delay: {SEED_SEC + (entries.length - 1) * TILE_STAGGER + TILE_SEC + PHASE_GAP + i * LINE_STAGGER}s;"

@@ -19,15 +19,15 @@
 	/>
 </svelte:head>
 
-<section class="mx-auto max-w-5xl px-6 py-20">
+<section class="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-20">
 	<SectionHeading
 		eyebrow="About"
 		title="A short introduction for Lee Jia Jing"
 		description="Replace this placeholder with a personal story, career direction, and the kind of work Lee wants to be known for."
 	/>
 
-	<div class="mt-10 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-		<article class="rounded-3xl border border-stone-200 bg-white/50 p-8">
+	<div class="mt-8 grid gap-6 sm:mt-10 sm:gap-8 lg:grid-cols-[1.4fr_1fr]">
+		<article class="rounded-3xl border border-stone-200 bg-white/50 p-5 sm:p-8">
 			<h2 class="text-2xl font-semibold text-stone-950">Biography</h2>
 			<p class="mt-4 leading-8 text-stone-600">
 				Lee Jia Jing is a developing technologist with an interest in thoughtful digital products,
@@ -40,7 +40,7 @@
 			</p>
 		</article>
 
-		<aside class="rounded-3xl border border-stone-200 bg-white/50 p-8">
+		<aside class="rounded-3xl border border-stone-200 bg-white/50 p-5 sm:p-8">
 			<h2 class="text-2xl font-semibold text-stone-950">Interests</h2>
 			<ul class="mt-5 space-y-3">
 				{#each interests as interest (interest)}
@@ -53,8 +53,8 @@
 	</div>
 </section>
 
-<section class="mx-auto max-w-5xl px-6 pb-20">
-	<div class="grid gap-8 lg:grid-cols-2">
+<section class="mx-auto max-w-5xl px-4 pb-12 sm:px-6 sm:pb-20">
+	<div class="grid gap-6 sm:gap-8 lg:grid-cols-2">
 		<div>
 			<SectionHeading eyebrow="Values" title="What shapes the work" />
 			<ul class="mt-6 space-y-4">

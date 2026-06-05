@@ -24,7 +24,7 @@
 </script>
 
 <footer class="border-t border-stone-200/70 bg-[#f8f1e7]">
-	<div class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between">
+	<div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 sm:px-6 sm:py-8 sm:flex-row sm:items-center sm:justify-between">
 		<p class="text-sm text-stone-600">
 			<span class="font-semibold text-stone-950">Lee Jia Jing</span>
 			<span aria-hidden="true"> · </span>
@@ -61,7 +61,7 @@
 
 {#if emailCopied}
 	<p
-		class="copy-toast fixed bottom-6 left-6 z-[60] rounded-md border border-stone-300/80 bg-[#fbf7ef] px-4 py-2 text-sm font-medium text-stone-800 shadow-md"
+		class="copy-toast fixed bottom-4 left-4 right-4 z-[60] mx-auto max-w-sm rounded-md border border-stone-300/80 bg-[#fbf7ef] px-4 py-2 text-center text-sm font-medium text-stone-800 shadow-md sm:bottom-6 sm:left-6 sm:right-auto sm:max-w-none sm:text-left"
 		role="status"
 		aria-live="polite"
 	>

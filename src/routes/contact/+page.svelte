@@ -69,7 +69,7 @@
 	/>
 </svelte:head>
 
-<section class="mx-auto max-w-2xl px-6 py-20">
+<section class="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-20">
 	<SectionHeading
 		eyebrow="Contact"
 		title="Start a conversation"

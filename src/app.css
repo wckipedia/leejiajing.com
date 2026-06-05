@@ -175,10 +175,16 @@ a {
 	position: absolute;
 	top: var(--y);
 	left: var(--x);
-	--bubble-size: 8rem;
+	--bubble-size: 7rem;
 	width: var(--bubble-size);
 	height: var(--bubble-size);
 	animation: tech-float 7s ease-in-out infinite;
+}
+
+@media (min-width: 1024px) {
+	.tech-bubble {
+		--bubble-size: 8rem;
+	}
 }
 
 .site-grid {

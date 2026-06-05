@@ -224,26 +224,26 @@
 	/>
 </svelte:head>
 
-<section class="snap-target relative -mt-24 flex min-h-[100dvh] items-start justify-center overflow-hidden pt-[max(6rem,20dvh)]">
+<section class="snap-target relative -mt-[4.5rem] flex min-h-[100dvh] items-start justify-center overflow-hidden pt-[max(5rem,16dvh)] sm:-mt-20 sm:pt-[max(6rem,20dvh)] md:-mt-24">
 	<div
-		class="relative mx-auto grid w-full max-w-6xl gap-12 px-6 py-12 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16"
+		class="relative mx-auto grid w-full max-w-6xl gap-8 px-4 py-10 sm:gap-12 sm:px-6 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16"
 	>
 		<div class="mx-auto flex w-full max-w-xl justify-center lg:mx-0 lg:justify-start">
 			<img
-				class="w-full max-w-[20rem] object-contain sm:max-w-[28rem] lg:max-w-[32rem]"
+				class="w-full max-w-[16rem] object-contain sm:max-w-[28rem] lg:max-w-[32rem]"
 				src="/images/personal%20logo.svg"
 				alt="Lee Jia Jing personal logo"
 			/>
 		</div>
 
 		<div class="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
-			<p class="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-amber-900/80">
+			<p class="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-amber-900/80 sm:text-sm sm:tracking-[0.35em]">
 				Personal Portfolio
 			</p>
-			<h1 class="text-5xl font-bold tracking-[-0.045em] text-stone-950 sm:text-7xl">
+			<h1 class="text-4xl font-bold tracking-[-0.045em] text-stone-950 sm:text-5xl md:text-6xl lg:text-7xl">
 				Lee Jia Jing
 			</h1>
-			<p class="mt-6 text-lg font-medium leading-8 text-stone-600 sm:text-xl">
+			<p class="mt-5 text-base font-medium leading-7 text-stone-600 sm:mt-6 sm:text-lg sm:leading-8 md:text-xl">
 				I’m an IT student at Republic Polytechnic, still exploring my career path with curiosity. 
 				I enjoy learning, and when I’m not building or discovering, I play video games and do photography.
 			</p>
@@ -323,7 +323,7 @@
 
 {#if emailCopied}
 	<p
-		class="copy-toast fixed bottom-6 left-6 z-[60] rounded-md border border-stone-300/80 bg-[#fbf7ef] px-4 py-2 text-sm font-medium text-stone-800 shadow-md"
+		class="copy-toast fixed bottom-4 left-4 right-4 z-[60] mx-auto max-w-sm rounded-md border border-stone-300/80 bg-[#fbf7ef] px-4 py-2 text-center text-sm font-medium text-stone-800 shadow-md sm:bottom-6 sm:left-6 sm:right-auto sm:max-w-none sm:text-left"
 		role="status"
 		aria-live="polite"
 	>
@@ -331,11 +331,24 @@
 	</p>
 {/if}
 
-<section id="skills" class="snap-target mx-auto max-w-6xl scroll-mt-24 px-6 py-16">
-	<h2 class="text-4xl font-bold tracking-[-0.04em] text-stone-950 sm:text-5xl">Skills</h2>
+<section id="skills" class="snap-target mx-auto max-w-6xl scroll-mt-[4.5rem] px-4 py-12 sm:scroll-mt-20 sm:px-6 sm:py-16 md:scroll-mt-24">
+	<h2 class="text-3xl font-bold tracking-[-0.04em] text-stone-950 sm:text-4xl md:text-5xl">Skills</h2>
 
-	<div class="relative mt-12 min-h-[44rem] sm:min-h-[48rem]">
-		<ul class="relative h-[44rem] sm:h-[48rem]">
+	<ul class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:hidden">
+		{#each technologies as technology (technology.name)}
+			<li
+				class="flex flex-col items-center justify-center gap-2 rounded-2xl border border-stone-300/80 bg-[#fbf7ef] px-3 py-4 text-center shadow-sm transition hover:border-stone-500 hover:bg-white hover:shadow-md"
+			>
+				<img class="size-7 shrink-0 sm:size-8" src={technology.icon} alt="" loading="lazy" />
+				<p class="text-xs font-bold leading-tight tracking-[-0.02em] text-stone-950">
+					{technology.name}
+				</p>
+			</li>
+		{/each}
+	</ul>
+
+	<div class="relative mt-12 hidden min-h-[44rem] md:block lg:min-h-[48rem]">
+		<ul class="relative h-[44rem] lg:h-[48rem]">
 			{#each technologies as technology (technology.name)}
 				<li
 					class="tech-bubble group flex flex-col items-center justify-center gap-2 rounded-full border border-stone-300/80 bg-[#f7f0e6] p-4 text-center shadow-sm transition hover:z-10 hover:border-stone-500 hover:bg-[#fbf7ef] hover:shadow-md"
@@ -351,15 +364,15 @@
 	</div>
 </section>
 
-<section id="experience" class="snap-target mx-auto max-w-6xl scroll-mt-24 px-6 py-16">
-	<h2 class="text-4xl font-bold tracking-[-0.04em] text-stone-950 sm:text-5xl">Experience</h2>
+<section id="experience" class="snap-target mx-auto max-w-6xl scroll-mt-[4.5rem] px-4 py-12 sm:scroll-mt-20 sm:px-6 sm:py-16 md:scroll-mt-24">
+	<h2 class="text-3xl font-bold tracking-[-0.04em] text-stone-950 sm:text-4xl md:text-5xl">Experience</h2>
 
 	<ExperienceTimeline {work} {education} />
 </section>
 
-<section id="projects" class="snap-target mx-auto max-w-6xl scroll-mt-24 px-6 pb-40 pt-40 sm:pb-52 sm:pt-52">
-	<h2 class="text-4xl font-bold tracking-[-0.04em] text-stone-950 sm:text-5xl">Projects</h2>
-	<div class="mt-10 grid items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-3">
+<section id="projects" class="snap-target mx-auto max-w-6xl scroll-mt-[4.5rem] px-4 pb-24 pt-20 sm:scroll-mt-20 sm:px-6 sm:pb-40 sm:pt-32 md:scroll-mt-24 md:pb-52 md:pt-52">
+	<h2 class="text-3xl font-bold tracking-[-0.04em] text-stone-950 sm:text-4xl md:text-5xl">Projects</h2>
+	<div class="mt-8 grid items-stretch gap-4 sm:mt-10 sm:gap-5 sm:grid-cols-2 xl:grid-cols-3">
 		{#each featuredProjects as project (project.title)}
 			<ProjectCard {project} />
 		{/each}
