@@ -2,6 +2,8 @@ export type Project = {
 	title: string;
 	description: string;
 	details?: string;
+	motivation?: string;
+	highlights?: string[];
 	tech: string[];
 	links?: {
 		github?: string;
@@ -23,34 +25,80 @@ export type TimelineEntry = {
 
 export const projects: Project[] = [
 	{
-		title: 'Portfolio Starter',
-		description: 'A personal website foundation with reusable sections, project cards, and Tailwind styling.',
-		details: 'A fully responsive portfolio built from the ground up with SvelteKit and Tailwind CSS. Features smooth scroll-snap navigation, animated skill bubbles, and a timeline-based experience section. Designed with accessibility and performance in mind.',
-		tech: ['SvelteKit', 'Svelte 5', 'Tailwind CSS'],
+		title: 'OCBC Virtual Teller Machine',
+		description:
+			'An end-to-end VTM prototype for the OCBC Ignite Innovation Challenge 2025 featuring voice-to-text, on-device intent classification via Ollama, guided banking workflows, and live-agent escalation through WebRTC with screen share, video, audio, and annotations.',
+		tech: [
+			'React',
+			'Vite',
+			'TanStack Router',
+			'Zustand',
+			'Tailwind CSS',
+			'Transformers.js',
+			'FastAPI',
+			'Ollama',
+			'WebRTC',
+			'Express',
+			'Framer Motion',
+			'Lucide'
+		],
+		motivation:
+			'We aimed to modernise in-branch banking with an AI kiosk that handles routine requests on its own, while smoothly escalating to a human agent when needed. Our goal was to run as much AI locally as possible for privacy, low latency, and offline friendly use, while keeping the experience clear and guided for common banking journeys such as payments, cards, and loans.',
+		details:
+			'The prototype walks users through realistic banking flows with voice input, on-device intent routing, and escalation to a live agent when confidence drops or the user asks for help. The agent session supports screen sharing, video, audio, and live annotations over a WebRTC data channel.',
+		highlights: [
+			'Voice-to-text capture with local Whisper transcription and optional faster-whisper ASR service',
+			'Intent classification with Ollama to route users into guided banking workflows',
+			'Live-agent handoff with WebRTC media, screen share, and annotation tooling',
+			'Modular React frontend with TanStack Router and Zustand-backed session state'
+		],
 		links: {
-			github: 'https://github.com/',
-			demo: '/'
+			github: 'https://github.com/domljl/ocbc-vtm-poc'
 		},
 		featured: true
 	},
 	{
 		title: 'Campus Companion',
 		description: 'A placeholder student-life product concept for organizing events, resources, and reminders.',
-		details: 'A concept application designed to help students organize campus events, manage resources, and set reminders. Focused on user research and prototyping to validate the idea before development.',
+		motivation:
+			'Placeholder copy: wanted a single place where students could discover campus events, keep track of deadlines, and share useful resources without jumping between chats, PDFs, and faculty sites.',
+		details:
+			'Placeholder copy: this expanded view would outline the product scope, user interviews, wireframes, and the core flows for event discovery, reminders, and lightweight resource sharing.',
+		highlights: [
+			'Placeholder user research summary and problem framing',
+			'Placeholder event feed and reminder workflow concepts',
+			'Placeholder mobile-first navigation and onboarding screens'
+		],
 		tech: ['TypeScript', 'UX Research', 'Prototyping'],
 		featured: true
 	},
 	{
 		title: 'Learning Journal',
 		description: 'A lightweight writing space for documenting experiments, notes, and project reflections.',
-		details: 'A minimalist journaling tool for developers to document experiments, take notes, and reflect on projects. Built with a Markdown-first approach and a clean design system for consistent styling.',
+		motivation:
+			'Placeholder copy: created to make it easier to capture what was tried, what worked, and what to revisit after labs, hackathons, and side projects.',
+		details:
+			'Placeholder copy: the expanded case study would cover the writing workflow, markdown structure, tagging model, and how entries tie back to portfolio projects over time.',
+		highlights: [
+			'Placeholder markdown-first editor flow',
+			'Placeholder tagging and search concepts for past experiments',
+			'Placeholder export and reflection templates for project writeups'
+		],
 		tech: ['SvelteKit', 'Markdown', 'Design Systems'],
 		featured: true
 	},
 	{
 		title: 'Data Dashboard Concept',
 		description: 'A visual dashboard placeholder for turning raw information into clear, actionable insights.',
-		details: 'A dashboard concept focused on presenting complex data in an accessible, visual format. Designed with chart accessibility and responsive frontend architecture principles.',
+		motivation:
+			'Placeholder copy: explored how to present operational metrics in a way that stays readable on smaller screens and remains accessible to non-technical stakeholders.',
+		details:
+			'Placeholder copy: this section would describe the dashboard information architecture, chart selection, filtering patterns, and responsive layout decisions.',
+		highlights: [
+			'Placeholder KPI summary cards and trend visualizations',
+			'Placeholder filter and comparison interactions',
+			'Placeholder accessibility and color-contrast considerations'
+		],
 		tech: ['Charts', 'Accessibility', 'Frontend Architecture']
 	}
 ];
