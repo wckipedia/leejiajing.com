@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { education, projects, work } from '$lib/data/portfolio';
 	import { ExperienceTimeline, ProjectCard } from '$lib/components';
+	import { Button } from '$lib/components/ui/button/index.js';
 
 	const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
 	const si = (slug: string, hex: string) =>
@@ -116,16 +116,17 @@
 		},
 		{
 			label: 'LinkedIn',
-			href: 'www.linkedin.com/in/leejiajing-tech',
+			href: 'https://www.linkedin.com/in/leejiajing-tech',
 			icon: 'linkedin'
 		}
 	] as const;
 
-	const heroActionClass =
-		'flex size-11 items-center justify-center rounded-md border border-stone-300/80 bg-[#fbf7ef] text-stone-600 transition hover:border-stone-400 hover:bg-white hover:text-stone-950 active:text-stone-400 focus:outline-none';
+	const heroButtonClass =
+		'border-stone-300/80 bg-[#fbf7ef] text-stone-600 shadow-none hover:border-stone-400 hover:bg-white hover:text-stone-950 active:text-stone-400';
 
-	const heroResumeClass =
-		'inline-flex h-11 items-center gap-2 rounded-md border border-stone-300/80 bg-[#fbf7ef] px-3.5 text-sm font-semibold text-stone-700 transition hover:border-stone-400 hover:bg-white hover:text-stone-950 active:text-stone-400 focus:outline-none';
+	const heroResumeButtonClass = `${heroButtonClass} h-11 gap-2 px-3.5 font-semibold text-stone-700`;
+
+	const heroIconButtonClass = `${heroButtonClass} size-11 shrink-0`;
 
 	let emailCopied = $state(false);
 	let emailCopyTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -142,78 +143,6 @@
 			window.location.href = `mailto:${emailAddress}`;
 		}
 	}
-
-	function easeInOutCubic(t: number) {
-		return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-	}
-
-	function smoothScrollTo(target: number, duration: number) {
-		const start = window.scrollY;
-		const distance = target - start;
-		const startTime = performance.now();
-
-		function step(now: number) {
-			const elapsed = now - startTime;
-			const progress = Math.min(elapsed / duration, 1);
-			window.scrollTo(0, start + distance * easeInOutCubic(progress));
-			if (progress < 1) requestAnimationFrame(step);
-		}
-
-		requestAnimationFrame(step);
-	}
-
-	onMount(() => {
-		let isScrolling = false;
-		let scrollTimeout: ReturnType<typeof setTimeout>;
-		const SCROLL_DURATION = 900;
-
-		function getSnapTargets(): number[] {
-			const sections = document.querySelectorAll<HTMLElement>('.snap-target');
-			return Array.from(sections).map((s) => {
-				const offset = parseFloat(getComputedStyle(s).scrollMarginTop) || 0;
-				return s.offsetTop - offset;
-			});
-		}
-
-		function snapToNearest() {
-			if (isScrolling) return;
-			const targets = getSnapTargets();
-			if (!targets.length) return;
-
-			const scrollY = window.scrollY;
-			let closest = targets[0];
-			let minDist = Math.abs(scrollY - closest);
-
-			for (const t of targets) {
-				const dist = Math.abs(scrollY - t);
-				if (dist < minDist) {
-					minDist = dist;
-					closest = t;
-				}
-			}
-
-			if (minDist > 5) {
-				isScrolling = true;
-				smoothScrollTo(closest, SCROLL_DURATION);
-				setTimeout(() => {
-					isScrolling = false;
-				}, SCROLL_DURATION + 50);
-			}
-		}
-
-		function onScroll() {
-			if (isScrolling) return;
-			clearTimeout(scrollTimeout);
-			scrollTimeout = setTimeout(snapToNearest, 120);
-		}
-
-		window.addEventListener('scroll', onScroll, { passive: true });
-
-		return () => {
-			window.removeEventListener('scroll', onScroll);
-			clearTimeout(scrollTimeout);
-		};
-	});
 </script>
 
 <svelte:head>
@@ -224,7 +153,7 @@
 	/>
 </svelte:head>
 
-<section class="snap-target relative -mt-[4.5rem] flex min-h-[100dvh] items-start justify-center overflow-hidden pt-[max(5rem,16dvh)] sm:-mt-20 sm:pt-[max(6rem,20dvh)] md:-mt-24">
+<section class="relative -mt-[4.5rem] flex min-h-[100dvh] items-start justify-center overflow-hidden pt-[max(5rem,16dvh)] sm:-mt-20 sm:pt-[max(6rem,20dvh)] md:-mt-24">
 	<div
 		class="relative mx-auto grid w-full max-w-6xl gap-8 px-4 py-10 sm:gap-12 sm:px-6 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16"
 	>
@@ -249,8 +178,9 @@
 			</p>
 
 			<div class="mt-8 flex flex-wrap items-center justify-center gap-2.5 lg:justify-start">
-					<a
-						class={heroResumeClass}
+					<Button
+						variant="outline"
+						class={heroResumeButtonClass}
 						href="/resume.pdf"
 						download="Lee_Jia_Jing_Resume.pdf"
 					>
@@ -269,11 +199,13 @@
 								d="M12 4v10m0 0 4-4m-4 4-4-4M5 20h14"
 							/>
 						</svg>
-					</a>
+					</Button>
 
 					{#each socialLinks as link (link.label)}
-						<a
-							class={heroActionClass}
+						<Button
+							variant="outline"
+							size="icon"
+							class={heroIconButtonClass}
 							href={link.href}
 							aria-label={link.label}
 							target="_blank"
@@ -292,12 +224,13 @@
 									/>
 								</svg>
 							{/if}
-						</a>
+						</Button>
 					{/each}
 
-					<button
-						type="button"
-						class={heroActionClass}
+					<Button
+						variant="outline"
+						size="icon"
+						class={heroIconButtonClass}
 						aria-label="Copy email address"
 						onclick={copyEmail}
 					>
@@ -315,7 +248,7 @@
 								d="M4 6h16v12H4V6zm0 0 8 7 8-7"
 							/>
 						</svg>
-					</button>
+					</Button>
 			</div>
 		</div>
 	</div>
@@ -331,7 +264,7 @@
 	</p>
 {/if}
 
-<section id="skills" class="snap-target mx-auto max-w-6xl scroll-mt-[4.5rem] px-4 py-12 sm:scroll-mt-20 sm:px-6 sm:py-16 md:scroll-mt-24">
+<section id="skills" class="mx-auto max-w-6xl scroll-mt-[4.5rem] px-4 py-12 sm:scroll-mt-20 sm:px-6 sm:py-16 md:scroll-mt-24">
 	<h2 class="text-3xl font-bold tracking-[-0.04em] text-stone-950 sm:text-4xl md:text-5xl">Skills</h2>
 
 	<ul class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:hidden">
@@ -364,13 +297,13 @@
 	</div>
 </section>
 
-<section id="experience" class="snap-target mx-auto max-w-6xl scroll-mt-[4.5rem] px-4 py-12 sm:scroll-mt-20 sm:px-6 sm:py-16 md:scroll-mt-24">
+<section id="experience" class="mx-auto max-w-6xl scroll-mt-[4.5rem] px-4 py-12 sm:scroll-mt-20 sm:px-6 sm:py-16 md:scroll-mt-24">
 	<h2 class="text-3xl font-bold tracking-[-0.04em] text-stone-950 sm:text-4xl md:text-5xl">Experience</h2>
 
 	<ExperienceTimeline {work} {education} />
 </section>
 
-<section id="projects" class="snap-target mx-auto max-w-6xl scroll-mt-[4.5rem] px-4 pb-24 pt-20 sm:scroll-mt-20 sm:px-6 sm:pb-40 sm:pt-32 md:scroll-mt-24 md:pb-52 md:pt-52">
+<section id="projects" class="mx-auto max-w-6xl scroll-mt-[4.5rem] px-4 pb-24 pt-20 sm:scroll-mt-20 sm:px-6 sm:pb-40 sm:pt-32 md:scroll-mt-24 md:pb-52 md:pt-52">
 	<h2 class="text-3xl font-bold tracking-[-0.04em] text-stone-950 sm:text-4xl md:text-5xl">Projects</h2>
 	<div class="mt-8 grid items-stretch gap-4 sm:mt-10 sm:gap-5 sm:grid-cols-2 xl:grid-cols-3">
 		{#each featuredProjects as project (project.title)}

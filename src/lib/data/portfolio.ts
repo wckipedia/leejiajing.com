@@ -58,33 +58,63 @@ export const projects: Project[] = [
 		featured: true
 	},
 	{
-		title: 'Campus Companion',
-		description: 'A placeholder student-life product concept for organizing events, resources, and reminders.',
-		motivation:
-			'Placeholder copy: wanted a single place where students could discover campus events, keep track of deadlines, and share useful resources without jumping between chats, PDFs, and faculty sites.',
-		details:
-			'Placeholder copy: this expanded view would outline the product scope, user interviews, wireframes, and the core flows for event discovery, reminders, and lightweight resource sharing.',
-		highlights: [
-			'Placeholder user research summary and problem framing',
-			'Placeholder event feed and reminder workflow concepts',
-			'Placeholder mobile-first navigation and onboarding screens'
+		title: 'Carbon Emissions Estimator',
+		description:
+			'An Electron desktop app for estimating supplier carbon emissions from invoice spend, with USEEIO-based Method 1 calculations, NAICS sector mapping, and a local FastAPI service backed by MySQL emission and FX data.',
+		tech: [
+			'React',
+			'Electron',
+			'TypeScript',
+			'Vite',
+			'Tailwind CSS',
+			'Radix UI',
+			'FastAPI',
+			'MySQL',
+			'Python',
+			'Lucide'
 		],
-		tech: ['TypeScript', 'UX Research', 'Prototyping'],
+		motivation:
+			'Built as a final-year project to help teams estimate portfolio carbon footprint from procurement data without relying on external SaaS tools. We wanted a local-first workflow that converts SGD spend into inflation-adjusted USD emissions using USEEIO factors, with room to grow into fuller NAICS mapping and additional calculation methods.',
+		details:
+			'Method 1 splits invoice spend across raw material, fabrication, and surface treatment, converts SGD to 2022 USD using FX and inflation tables, and applies kgCO₂e/USD factors per NAICS code. The Electron client routes API calls through IPC to avoid renderer CORS issues, with dev fallbacks when MySQL is unavailable.',
+		highlights: [
+			'USEEIO Method 1 pipeline with SGD-to-2022-USD conversion and kgCO₂e/USD factors per NAICS sector',
+			'Electron + React desktop UI with IPC-backed API calls and offline-friendly dev data fallbacks',
+			'FastAPI calculation service with shared TypeScript types across the renderer and API layer',
+			'Home hub and NAICS mapping scaffolds for upcoming Method 2 and Method 3 modules'
+		],
+		links: {
+			github: 'https://github.com/JoevinLau/C300'
+		},
 		featured: true
 	},
 	{
-		title: 'Learning Journal',
-		description: 'A lightweight writing space for documenting experiments, notes, and project reflections.',
-		motivation:
-			'Placeholder copy: created to make it easier to capture what was tried, what worked, and what to revisit after labs, hackathons, and side projects.',
-		details:
-			'Placeholder copy: the expanded case study would cover the writing workflow, markdown structure, tagging model, and how entries tie back to portfolio projects over time.',
-		highlights: [
-			'Placeholder markdown-first editor flow',
-			'Placeholder tagging and search concepts for past experiments',
-			'Placeholder export and reflection templates for project writeups'
+		title: 'Personal Portfolio Website',
+		description:
+			'A responsive personal portfolio built with SvelteKit 5 featuring an animated tech stack, expandable project cards, work and education timelines, and an EmailJS-powered contact form with no backend required.',
+		tech: [
+			'SvelteKit',
+			'Svelte 5',
+			'TypeScript',
+			'Tailwind CSS',
+			'Vite',
+			'EmailJS',
+			'Lucide',
+			'shadcn-svelte'
 		],
-		tech: ['SvelteKit', 'Markdown', 'Design Systems'],
+		motivation:
+			'Built to present my projects, experience, and skills in one cohesive site while learning modern Svelte patterns. The goal was a fast, content-driven portfolio that is easy to update from a single data file and works well on both desktop and mobile without needing a custom backend.',
+		details:
+			'Site content lives in `portfolio.ts` and renders across home, projects, about, and contact routes. The home page includes an animated skills visualization, featured project grid with expand-in-place cards, and a combined work and education timeline. Contact submissions route through EmailJS when credentials are configured.',
+		highlights: [
+			'Data-driven content model with featured projects, experience, education, and skills in one file',
+			'Expandable project cards with animated transitions and detailed case-study views',
+			'Animated desktop tech stack and responsive mobile skills grid on the home page',
+			'EmailJS contact form with environment-based configuration and graceful fallback messaging'
+		],
+		links: {
+			github: 'https://github.com/wckipedia/portfolio'
+		},
 		featured: true
 	},
 	{
