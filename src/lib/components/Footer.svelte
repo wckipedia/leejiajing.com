@@ -1,10 +1,16 @@
 <script lang="ts">
+	import { Button } from '$lib/components/ui/button/index.js';
+
 	const emailAddress = 'leejiajing76@gmail.com';
 
 	const socials = [
-		{ label: 'GitHub', href: 'https://github.com/' },
-		{ label: 'LinkedIn', href: 'https://www.linkedin.com/' }
+		{ label: 'X', href: 'https://x.com/Wckipedia' },
+		{ label: 'GitHub', href: 'https://github.com/wckipedia' },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/leejiajing-tech' }
 	];
+
+	const footerLinkClass =
+		'h-auto p-0 font-normal text-stone-600 hover:text-stone-950 active:text-stone-400';
 
 	let emailCopied = $state(false);
 	let emailCopyTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -25,36 +31,29 @@
 
 <footer class="border-t border-stone-200/70 bg-[#f8f1e7]">
 	<div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 sm:px-6 sm:py-8 sm:flex-row sm:items-center sm:justify-between">
-		<p class="text-sm text-stone-600">
+		<p class="flex flex-wrap items-center text-sm text-stone-600">
 			<span class="font-semibold text-stone-950">Lee Jia Jing</span>
-			<span aria-hidden="true"> · </span>
+			<span class="px-2.5" aria-hidden="true">·</span>
 			<span>Tech Enthusiast</span>
 		</p>
 
-		<nav aria-label="Social links">
-			<ul class="flex flex-wrap gap-3 text-sm text-stone-600">
-				{#each socials as social (social.label)}
-					<li>
-						<a
-						class="rounded-full transition hover:text-stone-950 focus:outline-none active:text-stone-400"
-						href={social.href}
-						target="_blank"
-						rel="noreferrer"
-						>
-							{social.label}
-						</a>
-					</li>
-				{/each}
-				<li>
-					<button
-						type="button"
-						class="cursor-pointer rounded-full transition hover:text-stone-950 focus:outline-none active:text-stone-400"
-						onclick={copyEmail}
-					>
-						Email
-					</button>
-				</li>
-			</ul>
+		<nav aria-label="Social links" class="flex flex-wrap items-center text-sm">
+			{#each socials as social, index (social.label)}
+				{#if index > 0}
+					<span class="px-2.5 text-stone-600" aria-hidden="true">·</span>
+				{/if}
+				<Button
+					variant="link"
+					class={footerLinkClass}
+					href={social.href}
+					target="_blank"
+					rel="noreferrer"
+				>
+					{social.label}
+				</Button>
+			{/each}
+			<span class="px-2.5 text-stone-600" aria-hidden="true">·</span>
+			<Button variant="link" class={footerLinkClass} onclick={copyEmail}>Email</Button>
 		</nav>
 	</div>
 </footer>

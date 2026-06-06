@@ -145,7 +145,7 @@ export const skills = [
 export const work: TimelineEntry[] = [
 	{
 		organization: 'Nanyang Technological University',
-		role: 'Desktop Support',
+		role: 'Desktop Support Engineer | Intern',
 		period: 'Jul 2023 — Nov 2023',
 		logo: '/images/ntu logo.svg.png',
 		highlights: [
@@ -157,7 +157,7 @@ export const work: TimelineEntry[] = [
 	},
 	{
 		organization: 'Indoguna Singapore',
-		role: 'Data Entry & Desktop Support',
+		role: 'Data Entry & Desktop Support Engineer | Intern',
 		period: 'May 2022 — Nov 2022',
 		logo: '/images/indoguna logo.webp',
 		logoLarge: true,
