@@ -5,6 +5,9 @@
 		{ href: '/#projects', label: 'Projects' }
 	];
 
+	const contactButtonClass =
+		'inline-flex h-11 items-center gap-2 rounded-md border border-stone-300/80 bg-[#fbf7ef] px-3.5 text-sm font-semibold text-stone-700 transition hover:border-stone-400 hover:bg-white hover:text-stone-950 active:text-stone-400 focus:outline-none';
+
 	let mobileMenuOpen = $state(false);
 
 	function closeMobileMenu() {
@@ -87,7 +90,7 @@
 
 			<div class="flex items-center gap-2 md:justify-self-end">
 				<a
-					class="hidden items-center justify-center rounded-full border border-stone-200 bg-white/70 px-4 py-2 text-sm font-semibold text-stone-800 shadow-sm transition hover:-translate-y-0.5 hover:border-stone-300 hover:bg-white focus:outline-none active:text-stone-500 sm:inline-flex"
+					class="{contactButtonClass} hidden sm:inline-flex"
 					href="/contact"
 				>
 					Contact me
@@ -130,9 +133,9 @@
 							</a>
 						</li>
 					{/each}
-					<li class="border-t border-stone-200/80 pt-1 sm:hidden">
+					<li class="border-t border-stone-200/80 pt-2 sm:hidden">
 						<a
-							class="block rounded-xl px-3 py-2.5 font-semibold text-stone-800 transition hover:bg-white focus:outline-none active:text-stone-400"
+							class="{contactButtonClass} w-full justify-center"
 							href="/contact"
 							onclick={closeMobileMenu}
 						>

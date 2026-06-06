@@ -254,6 +254,7 @@
 						href="/resume.pdf"
 						download="Lee_Jia_Jing_Resume.pdf"
 					>
+						Resume
 						<svg
 							class="size-4 shrink-0"
 							viewBox="0 0 24 24"
@@ -268,7 +269,6 @@
 								d="M12 4v10m0 0 4-4m-4 4-4-4M5 20h14"
 							/>
 						</svg>
-						Resume
 					</a>
 
 					{#each socialLinks as link (link.label)}
