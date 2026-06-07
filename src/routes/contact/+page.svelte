@@ -160,12 +160,5 @@
 				{errorMessage}
 			</p>
 		{/if}
-
-		{#if !emailJsReady}
-			<p class="text-sm text-stone-500">
-				To enable sending, copy <code class="text-stone-700">.env.example</code> to
-				<code class="text-stone-700">.env</code> and add your EmailJS service, template, and public key.
-			</p>
-		{/if}
 	</form>
 </section>
