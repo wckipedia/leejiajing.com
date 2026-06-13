@@ -118,6 +118,68 @@ export const projects: Project[] = [
 		featured: true
 	},
 	{
+		title: 'Step-PDF',
+		description:
+			'A free PDF and file conversion toolkit built with Next.js — drop a file, pick a tool, and download the result with no accounts or paywalls. Browser tools run entirely on-device, while server routes handle Office and advanced PDF workflows.',
+		tech: [
+			'Next.js',
+			'TypeScript',
+			'Tailwind CSS',
+			'pdf-lib',
+			'JSZip',
+			'Python',
+			'LibreOffice',
+			'Ghostscript',
+			'Poppler',
+			'qpdf'
+		],
+		motivation:
+			'Built to make everyday file conversions fast and accessible without sign-ups or paid tiers. The goal was a simple drop-in workflow that works immediately in the browser for common PDF tasks, with optional server-side tooling for Office formats and heavier conversions when native binaries are available.',
+		details:
+			'Browser tools cover image, text, merge, split, and rotate PDF flows using pdf-lib and JSZip, so they work after `pnpm dev` and deploy cleanly to Vercel. Server routes under `/api/convert` handle Word, PowerPoint, Excel, compression, protection, and PDF-to-image conversions via LibreOffice, Ghostscript, Poppler, qpdf, and pdf2docx, with uploads stored in a temporary directory and deleted after each request.',
+		highlights: [
+			'Client-side PDF tools for image, text, merge, split, and rotate with no file upload required',
+			'Server conversion API for Office documents, PDF compression, protection, and PDF-to-Word or image exports',
+			'Temporary-only upload handling so converted files are not stored permanently',
+			'Deployable as a static-friendly Next.js app with optional native binary support for advanced tools'
+		],
+		links: {
+			github: 'https://github.com/wckipedia/step-pdf'
+		},
+		featured: true
+	},
+	{
+		title: 'CVify',
+		description:
+			'A free, client-side resume builder with live preview, 11 design templates, and PDF export. Edit on the left, see changes instantly on the right — no account, no backend, with data saved locally in the browser.',
+		tech: [
+			'React',
+			'TypeScript',
+			'Vite',
+			'Tailwind CSS',
+			'Zustand',
+			'React Router',
+			'Radix UI',
+			'dnd-kit',
+			'jsPDF',
+			'modern-screenshot'
+		],
+		motivation:
+			'Built to give job seekers a polished resume builder without paywalls, sign-ups, or sending personal data to a server. The goal was a fast editor-to-preview workflow with multiple template styles — from ATS-safe layouts to more visual designs — and reliable PDF export entirely in the browser.',
+		details:
+			'The builder at `/builder` pairs a structured editor with a live preview panel, covering personal info, summary, skills, experience, education, projects, and certifications. Users can switch between 11 templates, tune font size and spacing, pick accent colors where supported, reorder skill categories via drag-and-drop, and export to PDF or JSON. Resume data autosaves to `localStorage` and never leaves the device.',
+		highlights: [
+			'Live split-panel editor with 11 templates ranging from ATS-friendly to multi-column magazine layouts',
+			'Drag-and-drop skill reordering, layout controls, and section toggles for summary, projects, and certifications',
+			'Client-side PDF export via modern-screenshot and jsPDF with JSON import/export for portable backups',
+			'Fully static deployment with Zustand-backed persistence and no backend required'
+		],
+		links: {
+			github: 'https://github.com/wckipedia/CVify'
+		},
+		featured: true
+	},
+	{
 		title: 'Data Dashboard Concept',
 		description: 'A visual dashboard placeholder for turning raw information into clear, actionable insights.',
 		motivation:

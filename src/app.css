@@ -221,33 +221,6 @@ a {
 	}
 }
 
-@keyframes tech-float {
-	0%,
-	100% {
-		transform: translate(-50%, -50%) translateY(0);
-	}
-
-	50% {
-		transform: translate(-50%, -50%) translateY(-10px);
-	}
-}
-
-.tech-bubble {
-	position: absolute;
-	top: var(--y);
-	left: var(--x);
-	--bubble-size: 7rem;
-	width: var(--bubble-size);
-	height: var(--bubble-size);
-	animation: tech-float 7s ease-in-out infinite;
-}
-
-@media (min-width: 1024px) {
-	.tech-bubble {
-		--bubble-size: 8rem;
-	}
-}
-
 .site-grid {
 	position: relative;
 	min-height: 100vh;

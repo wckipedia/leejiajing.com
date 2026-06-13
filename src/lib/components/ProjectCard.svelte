@@ -17,7 +17,7 @@
 	let cardEl: HTMLElement | undefined = $state();
 	let measureEl: HTMLElement | undefined = $state();
 	let tileStyle = $state('');
-	let expandedSize = $state<{ width: number; height: number } | null>(null);
+	let expandedSize = $state<{ width: number; height: number; needsScroll: boolean } | null>(null);
 
 	const showPlaceholder = $derived(phase === 'loading' || phase === 'close');
 
@@ -25,7 +25,9 @@
 	const LOADER_MS = 180;
 	const cardEasing = 'cubic-bezier(0.22, 1, 0.36, 1)';
 	const cardTransition = `transition: all 0.4s ${cardEasing};`;
-	const expandedWidth = 'min(42rem, calc(100vw - 2rem))';
+	const expandedWidth = 'min(50rem, calc(100vw - 2rem))';
+	const expandedViewportPadding = 16;
+	const expandedHeightBuffer = 10;
 
 	function portal(node: HTMLElement) {
 		document.body.appendChild(node);
@@ -49,10 +51,12 @@
 		return `top: ${r.top}px; left: ${r.left}px; width: ${r.width}px; height: ${r.height}px;`;
 	}
 
-	function centerStyle(size: { width: number; height: number }) {
+	function centerStyle(size: { width: number; height: number; needsScroll: boolean }) {
+		const overflowY = size.needsScroll ? 'auto' : 'visible';
+
 		return `
 			top: 50%; left: 50%; width: ${size.width}px; height: ${size.height}px;
-			transform: translate(-50%, -50%); overflow-y: auto;
+			transform: translate(-50%, -50%); overflow-y: ${overflowY};
 		`;
 	}
 
@@ -60,11 +64,13 @@
 		if (!measureEl) return null;
 
 		const rect = measureEl.getBoundingClientRect();
-		const maxViewportHeight = window.innerHeight - 32;
+		const maxViewportHeight = window.innerHeight - expandedViewportPadding * 2;
+		const contentHeight = Math.ceil(rect.height) + expandedHeightBuffer;
 
 		return {
 			width: Math.ceil(rect.width),
-			height: Math.min(Math.ceil(rect.height), maxViewportHeight)
+			height: Math.min(contentHeight, maxViewportHeight),
+			needsScroll: contentHeight > maxViewportHeight
 		};
 	}
 
@@ -320,17 +326,17 @@
 				style:width={expandedWidth}
 				aria-hidden="true"
 			>
-				<div class="px-5 py-5 sm:px-6 sm:py-6">
+				<div class="px-5 pt-5 pb-3.5 sm:px-6 sm:pt-6 sm:pb-4">
 					{@render projectDetails(false)}
 				</div>
 			</div>
 		{/if}
 
 		<div
-			class="fixed z-50 overflow-hidden rounded-[1.35rem] border border-stone-300/80 bg-[#fbf7ef] shadow-sm"
+			class="fixed z-50 overflow-y-auto rounded-[1.35rem] border border-stone-300/80 bg-[#fbf7ef] shadow-sm"
 			style={tileStyle}
 		>
-			<div class="h-full px-5 py-5 sm:px-6 sm:py-6">
+			<div class="px-5 pt-5 pb-3.5 sm:px-6 sm:pt-6 sm:pb-4">
 				{#if showPlaceholder}
 					{@render projectSkeleton()}
 				{:else if phase === 'open'}
