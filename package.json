@@ -26,6 +26,7 @@
 		"@emailjs/browser": "^4.4.1",
 		"@lucide/svelte": "^1.17.0",
 		"clsx": "^2.1.1",
+		"motion": "^12.40.0",
 		"tailwind-merge": "^3.6.0",
 		"tailwind-variants": "^3.2.2"
 	}
