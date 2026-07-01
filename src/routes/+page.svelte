@@ -89,7 +89,7 @@
 	] as const;
 
 	const heroButtonClass =
-		'border-stone-300/80 bg-[#fbf7ef] text-stone-600 shadow-none hover:border-stone-400 hover:bg-white hover:text-stone-950 active:text-stone-400';
+		'hero-action-button border-stone-300/80 bg-[#fbf7ef] text-stone-600 shadow-none hover:border-stone-400 hover:bg-white hover:text-stone-950 active:text-stone-400';
 
 	const heroResumeButtonClass = `${heroButtonClass} h-11 gap-2 px-3.5 font-semibold text-stone-700`;
 

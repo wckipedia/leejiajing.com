@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
 	const links = [
 		{ href: '/#skills', label: 'Skills' },
 		{ href: '/#experience', label: 'Experience' },
@@ -9,6 +11,7 @@
 		'inline-flex h-11 items-center gap-2 rounded-md border border-stone-300/80 bg-[#fbf7ef] px-3.5 text-sm font-semibold text-stone-700 transition hover:border-stone-400 hover:bg-white hover:text-stone-950 active:text-stone-400 focus:outline-none';
 
 	let mobileMenuOpen = $state(false);
+	let contactTransitioning = $state(false);
 
 	function closeMobileMenu() {
 		mobileMenuOpen = false;
@@ -52,6 +55,63 @@
 		smoothScrollTo(section.offsetTop - offset, 900);
 		closeMobileMenu();
 	}
+
+	async function handleContactClick(event: MouseEvent) {
+		if (contactTransitioning) {
+			event.preventDefault();
+			return;
+		}
+
+		event.preventDefault();
+		contactTransitioning = true;
+		closeMobileMenu();
+
+		const navigate = async () => {
+			await goto('/contact');
+			window.scrollTo(0, 0);
+		};
+
+		const startViewTransition = (
+			document as Document & {
+				startViewTransition?: (update: () => Promise<void>) => { finished: Promise<void> };
+			}
+		).startViewTransition;
+
+		try {
+			if (
+				startViewTransition &&
+				!window.matchMedia('(prefers-reduced-motion: reduce)').matches
+			) {
+				const transition = startViewTransition.call(document, navigate);
+				await transition.finished;
+			} else {
+				const main = document.querySelector('main');
+				const snapshot = main?.cloneNode(true) as HTMLElement | undefined;
+
+				if (snapshot && main) {
+					const rect = main.getBoundingClientRect();
+					snapshot.className = 'contact-page-snapshot';
+					snapshot.setAttribute('aria-hidden', 'true');
+					snapshot.setAttribute('inert', '');
+					snapshot.style.top = `${rect.top}px`;
+					snapshot.style.height = `${window.innerHeight - rect.top}px`;
+					document.body.appendChild(snapshot);
+				}
+
+				await navigate();
+
+				const nextMain = document.querySelector('main');
+				nextMain?.classList.add('contact-page-fallback-enter');
+				snapshot?.classList.add('contact-page-snapshot-leave');
+
+				await new Promise((resolve) => setTimeout(resolve, 480));
+				nextMain?.classList.remove('contact-page-fallback-enter');
+				snapshot?.remove();
+			}
+		} finally {
+			contactTransitioning = false;
+		}
+	}
 </script>
 
 <svelte:window
@@ -91,7 +151,9 @@
 			<div class="flex items-center gap-2 md:justify-self-end">
 				<a
 					class="{contactButtonClass} hidden sm:inline-flex"
+					class:contact-button-active={contactTransitioning}
 					href="/contact"
+					onclick={handleContactClick}
 				>
 					Contact me
 				</a>
@@ -136,8 +198,9 @@
 					<li class="border-t border-stone-200/80 pt-2 sm:hidden">
 						<a
 							class="{contactButtonClass} w-full justify-center"
+							class:contact-button-active={contactTransitioning}
 							href="/contact"
-							onclick={closeMobileMenu}
+							onclick={handleContactClick}
 						>
 							Contact me
 						</a>

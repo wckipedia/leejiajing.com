@@ -84,6 +84,94 @@ a {
 	animation: toast-in 0.22s ease-out;
 }
 
+.hero-action-button {
+	position: relative;
+	overflow: hidden;
+	transition:
+		transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+		border-color 220ms ease,
+		background-color 220ms ease,
+		color 220ms ease,
+		box-shadow 220ms ease;
+}
+
+.hero-action-button::before {
+	position: absolute;
+	inset: 0;
+	content: '';
+	background: linear-gradient(110deg, transparent 20%, rgba(180, 83, 9, 0.1) 48%, transparent 76%);
+	transform: translateX(-135%);
+	transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+	pointer-events: none;
+}
+
+.hero-action-button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 18px -10px rgba(68, 64, 60, 0.65);
+}
+
+.hero-action-button:hover::before {
+	transform: translateX(135%);
+}
+
+.hero-action-button svg {
+	transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-action-button:hover svg {
+	transform: translateY(-1px) scale(1.1) rotate(-4deg);
+}
+
+.hero-action-button:active {
+	transform: translateY(0) scale(0.96);
+	box-shadow: none;
+}
+
+.contact-button-active {
+	transform: scale(0.96);
+	background: white;
+}
+
+.contact-page-snapshot {
+	position: fixed;
+	z-index: 40;
+	right: 0;
+	left: 0;
+	overflow: hidden;
+	background: #f7f0e6;
+	pointer-events: none;
+}
+
+.contact-page-snapshot-leave {
+	animation: contact-page-out 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.contact-page-fallback-enter {
+	animation: contact-page-in 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+::view-transition-old(root) {
+	animation: contact-page-out 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+::view-transition-new(root) {
+	animation: contact-page-in 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes contact-page-out {
+	to {
+		opacity: 0.35;
+		transform: translateX(-2.5rem) scale(0.985);
+	}
+}
+
+@keyframes contact-page-in {
+	from {
+		opacity: 0;
+		transform: translateX(2.5rem) scale(0.985);
+	}
+}
+
 @keyframes timeline-line-reveal {
 	from {
 		opacity: 0;
@@ -130,6 +218,25 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
+	.hero-action-button,
+	.hero-action-button::before,
+	.hero-action-button svg {
+		transition: none;
+	}
+
+	.hero-action-button:hover,
+	.hero-action-button:hover svg,
+	.hero-action-button:active {
+		transform: none;
+	}
+
+	.contact-page-snapshot-leave,
+	.contact-page-fallback-enter,
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+	}
+
 	.timeline-connector,
 	.timeline-tile {
 		opacity: 1;
