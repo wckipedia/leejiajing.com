@@ -4,11 +4,13 @@ Personal portfolio site built with SvelteKit 5, TypeScript, and Tailwind CSS v4.
 
 ## Features
 
-- **Home** — Hero, animated tech stack, featured projects, and work experience timeline
-- **Projects** — Full project grid with tech tags and external links
-- **About** — Bio, values, interests, and education history
-- **Contact** — Form powered by [EmailJS](https://www.emailjs.com/) (no backend required)
-- Responsive layout with reusable components (`Header`, `Footer`, `ProjectCard`, `ExperienceTimeline`, etc.)
+- **Typography-led home** - kinetic variable-type identity, five equal project
+  stories, career history, and working approach
+- **Project accordion** - one project expands at a time into problem, decisions,
+  result, stack, and links
+- **Themes** - system-aware light and dark modes with a stored manual override
+- **Contact** - accessible form powered by [EmailJS](https://www.emailjs.com/)
+- Responsive, reduced-motion-aware interactions built with reusable Svelte components
 
 ## Tech stack
 
@@ -44,19 +46,21 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ### Content
 
-Most site content lives in a single data file:
+Portfolio content lives in a single typed data file:
 
 ```
 src/lib/data/portfolio.ts
 ```
 
-Update `projects`, `work`, `education`, and `skills` there. Featured projects on the home page are filtered by the `featured` flag.
+Update `projects`, `work`, and `education` there.
 
-Page copy (hero text, about bio, etc.) is in the route files under `src/routes/`.
+Page copy is in the route files under `src/routes/`. The former `/projects` and
+`/about` routes redirect to their homepage sections.
 
 ### Resume
 
-Replace `static/resume.pdf` with your own PDF. Links to it are wired through the header and footer.
+Replace `static/resume.pdf` with your own PDF. Links to it are wired through the
+hero and closing section.
 
 ### Contact form (EmailJS)
 
@@ -89,15 +93,15 @@ The contact page checks for valid keys before sending. Without them, the form sh
 src/
 ├── app.css                 # Global styles and Tailwind theme
 ├── lib/
-│   ├── components/         # Shared UI components
+│   ├── components/         # Header, kinetic type, indexes, tabs, and form UI
 │   └── data/
-│       └── portfolio.ts    # Projects, experience, education, skills
+│       └── portfolio.ts    # Projects, work, and education
 └── routes/
     ├── +layout.svelte      # Site shell (header, footer)
     ├── +page.svelte        # Home
-    ├── about/
+    ├── about/              # Redirect to /#about
     ├── contact/
-    └── projects/
+    └── projects/           # Redirect to /#projects
 static/
 ├── images/                 # Logos and assets
 └── resume.pdf

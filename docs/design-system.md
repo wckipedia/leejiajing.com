@@ -1,119 +1,106 @@
-# Design System
+# Portfolio V2 Design System
 
-Status: foundational brief. The redesign's visual direction has not been selected.
-Record approved choices here before they are implemented.
+Status: approved and implemented.
 
-## Principles
+## Direction
 
-- Present engineering work with confidence, clarity, and evidence.
-- Use a small, coherent visual vocabulary instead of a collection of effects.
-- Make hierarchy obvious within a quick recruiter scan.
-- Keep interaction behavior predictable and accessible.
-- Prefer durable tokens and reusable components over one-off values.
+Portfolio V2 is an airy, asymmetric, typography-led engineering portfolio. It
+uses monochrome contrast, large variable type, flat surfaces, and generous
+spacing instead of card-heavy layouts or decorative media.
+
+The visual system should help recruiters scan the work quickly while giving
+technical readers expandable detail.
 
 ## Typography
 
-The final display and body families are intentionally undecided until design
-exploration. Font selection must preserve legibility, load efficiently, and include
-the weights actually used.
+| Role | Family | Use |
+| --- | --- | --- |
+| Display | Space Grotesk Variable | Hero name, section headings, project titles |
+| Body | Space Grotesk Variable | Paragraphs, navigation, form controls |
+| Utility | IBM Plex Mono | Labels, dates, interaction states, metadata |
 
-Working type scale:
+- Self-host the Latin font subsets with `font-display: swap`.
+- Body copy remains at least 16px where it carries meaningful information.
+- Project summaries and expanded project details use larger body sizes than
+  default paragraph copy so technical evidence stays readable inside the dense
+  accordion layout.
+- Display type may change weight, but paragraph typography remains stable.
+- Use sentence case and direct language.
 
-| Token | Size | Typical use |
-| --- | ---: | --- |
-| `text-xs` | 0.75rem | Metadata and compact labels |
-| `text-sm` | 0.875rem | Secondary copy |
-| `text-base` | 1rem | Body copy |
-| `text-lg` | 1.125rem | Introductory copy |
-| `text-xl` | 1.25rem | Small headings |
-| `text-2xl` | 1.5rem | Component headings |
-| `text-3xl` | 1.875rem | Section headings |
-| `text-4xl+` | Fluid | Page and hero display type |
+## Color and themes
 
-- Body text should remain comfortable at 16px or larger.
-- Keep body line length near 60–75 characters.
-- Use monospace only when it communicates technical meaning.
-- Avoid downloading unused font weights or character sets.
+### Light
 
-## Color palette
+- Background: `#fafafa`
+- Foreground: `#1c1f21`
+- Muted text: `#5e6264`
+- Surface: `#f0f0ed`
 
-The brand palette is pending design exploration. Implement it through semantic
-tokens rather than component-specific colors:
+### Dark
 
-- `background`, `surface`, and `surface-elevated`
-- `text-primary`, `text-secondary`, and `text-muted`
-- `border` and `border-strong`
-- `accent` and `accent-contrast`
-- `success`, `warning`, and `error`
-- `focus-ring`
+- Background: `#111315`
+- Foreground: `#f4f4f0`
+- Muted text: `#b0b2ae`
+- Surface: `#191b1d`
 
-Every approved foreground/background pair must meet WCAG AA contrast. Color must
-not be the only signal for state, validation, or navigation.
+The site has no accent color. Hierarchy comes from type, spacing, and
+foreground/background inversion. Theme selection follows the operating system
+until the visitor makes a stored manual choice.
 
-## Spacing scale
+## Background
 
-Use a 4px base grid:
+Light mode repeats a 48px square SVG tile with a soft white ground and a single
+3px near-black square at 15% opacity. Dark mode uses a solid background with no
+pattern.
 
-`0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128`
+The background is static. Do not add pointer lighting, parallax, or continuous
+ambient animation.
 
-Prefer consistent section rhythms and container gutters. Break the scale only
-when optical alignment or responsive content requires it, and document repeated
-exceptions as a token.
+## Layout
 
-## Border radius
+- Maximum content width: 90rem.
+- Gutters scale fluidly from 16px to 64px.
+- Desktop composition may be offset and asymmetric.
+- The hero name is centered; directly below it, the capability statement anchors
+  left while primary links anchor right.
+- The hero name keeps natural word spacing and scales its font size to align its
+  rendered left and right edges with the supporting row below.
+- A small optical correction compensates for the display font's left side bearing.
+- Layouts collapse to one readable column below 768px.
+- Section spacing is intentionally generous, but the hero and primary actions
+  remain within the first viewport.
 
-Working scale:
+## Shapes and surfaces
 
-- `radius-sm`: 4px
-- `radius-md`: 8px
-- `radius-lg`: 12px
-- `radius-xl`: 16px
-- `radius-round`: 9999px for circular controls and intentional pills only
+- Use whitespace and typography before containers or decorative divider lines.
+- Buttons and inputs are rectangular, borderless, and use surface contrast.
+- Expanded project details use restrained dividers to separate Problem, Key
+  decisions, and Result.
+- Key decisions are presented as a semantic ordered list, visually expressed as
+  separated editorial text blocks instead of filled bullets or visible numbers.
+- Projects keep additional bottom spacing so the final accordion item can expand
+  without its links sitting against the viewport edge.
+- Cards, shadows, glass panels, and floating status pills are not part of V2.
+- Experience and education use the same flat surface as Projects, with a compact
+  tab rail and typographic rows instead of separate cards. The tab rail aligns
+  with the first entry title, and history detail copy matches expanded project
+  detail sizing. History highlights use standard disc bullets for scan clarity.
+- Contact uses the same flat surface language as Projects and Experience. Form
+  labels, controls, helper text, and status messages stay close to expanded
+  project detail sizing so the page does not feel like a separate template.
+- Focus rings use the current foreground color and remain visible in both themes.
 
-Choose a restrained subset after the visual direction is approved. Avoid making
-every container a rounded card.
+## Media
 
-## Shadows
+The personal mark is the only visual asset. Project screenshots, stock
+photography, diagrams, and decorative illustrations are intentionally excluded.
 
-Use elevation sparingly:
+## Core patterns
 
-- `shadow-subtle`: separates an interactive surface from its background.
-- `shadow-raised`: supports temporary or floating UI.
-- `shadow-overlay`: reserved for dialogs and other modal layers.
-
-Borders, contrast, and spacing should establish hierarchy before shadows do.
-
-## Animation principles
-
-- Motion must explain entry, exit, hierarchy, or direct manipulation.
-- Prefer opacity and transform; avoid animating layout-heavy properties.
-- Provide immediate feedback and keep common interactions under 250ms.
-- Respect `prefers-reduced-motion`.
-- See `animations.md` for implementation guidance and reusable patterns.
-
-## Responsive breakpoints
-
-Use Tailwind's default breakpoints unless content testing proves a different
-threshold is needed:
-
-| Name | Minimum width |
-| --- | ---: |
-| `sm` | 640px |
-| `md` | 768px |
-| `lg` | 1024px |
-| `xl` | 1280px |
-| `2xl` | 1536px |
-
-Start from the smallest layout. Add a breakpoint because the content needs it,
-not because a specific device was named.
-
-## Component design language
-
-- Components should have one clear purpose and a small, typed interface.
-- Project work should lead with outcomes, role, constraints, and technical decisions.
-- Reuse primitives for buttons, links, tags, section headings, media, and focus states.
-- Preserve semantic elements even when the visual treatment is unconventional.
-- Make hover an enhancement; essential information and actions must remain available
-  to keyboard and touch users.
-- Use progressive disclosure for detail without hiding the evidence needed for a
-  fast first scan.
+- Header: personal mark, anchor navigation, theme control, and Contact action.
+- Hero: kinetic name, one capability statement, and direct actions.
+- Homepage sequence: hero, How I work, Experience and education, Projects, and
+  resume CTA.
+- History: Work-first accessible tabs inside a shared surface.
+- Projects: equal-weight, single-open accordion.
+- Contact: visible labels and complete EmailJS states.
