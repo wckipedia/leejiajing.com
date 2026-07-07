@@ -1,66 +1,84 @@
-# Animation Guidelines
+# Portfolio V2 Motion Guidelines
 
 ## Purpose
 
-Motion should clarify hierarchy, continuity, feedback, or navigation. It should
-never delay access to content or compensate for weak layout.
+Motion reinforces identity, hierarchy, and state. Portfolio V2 spends its
+motion budget in three places: the hero name, project disclosure, and the
+home/contact route transition.
 
-## Preferred tools
+## Kinetic name
 
-1. CSS transitions and keyframes for simple state changes and entrance effects.
-2. Svelte transitions and actions when behavior belongs to component state.
-3. The existing `motion` dependency only for coordinated sequences, gesture-driven
-   behavior, or spring motion that would be harder to maintain by hand.
+- Space Grotesk Variable changes its `wght` axis by character.
+- A restrained horizontal scale recreates the source animation's width pressure
+  because Space Grotesk does not provide a variable width axis.
+- Entry begins near `wght 350` and settles at `wght 650`, matching the section
+  heading weight.
+- Fine-pointer proximity may move characters within `wght 500-700` and
+  `scaleX(0.88-1.16)`.
+- Character positions are measured after font load and resize, never on every
+  animation frame.
+- Pointer tracking is active only while the name is engaged.
+- Animation stops when the hero leaves the viewport, the page becomes hidden,
+  or the window loses focus.
+- Coarse pointers receive the settled static state.
 
-Do not add GSAP, a smooth-scroll library, or another animation dependency without
-a concrete interaction requirement and a measured performance review.
+The source retains attribution to the CodePen concept that informed the
+interaction.
 
-## Timing
+## Project disclosure
 
-- Direct feedback: 100–160ms
-- Small state or hover transition: 160–220ms
-- Component enter/exit: 200–320ms
-- Section-level sequence: 320–600ms total
+- Only one project may be open at a time.
+- Expand and collapse uses a 420ms grid-row transition so layout opens without
+  measuring height in JavaScript.
+- Project-title weight shifts over 260ms to communicate the selected state.
+- Desktop detail dividers draw top-down before their adjacent text settles in.
+- Tablet and mobile horizontal detail dividers draw left-to-right.
+- Key decision separators use the same drawn-rule motion as the detail
+  dividers, staggered after the Key decisions column appears.
+- Detail text fades and rises in a short cascade: Problem, Key decisions,
+  Result, then project links.
+- Expansion never moves keyboard focus automatically.
 
-Avoid long stagger chains. Content should become usable immediately.
+## History tabs
 
-## Easing
+- Work and Education use a keyed panel transition so the selected history set
+  fades and moves in the direction of the tab change.
+- Entry rows settle in a short cascade after the panel changes, reinforcing
+  that the content set has changed without adding scroll-driven motion.
+- The animation uses only opacity and transform.
 
-- Standard UI: `cubic-bezier(0.2, 0, 0, 1)`
-- Enter: `cubic-bezier(0.16, 1, 0.3, 1)`
-- Exit: `cubic-bezier(0.4, 0, 1, 1)`
-- Linear: progress indicators and genuinely continuous values only
+## Home/contact route transition
 
-## Reusable patterns
+- Contact and Back home links use client-side navigation only for the home and
+  contact routes, so the anchors still work normally without JavaScript.
+- The transition uses the native View Transitions API when available.
+- When native route transitions are unavailable, a fixed snapshot of the current
+  main content slides away while the incoming page settles in, avoiding a blank
+  intermediate frame.
+- Contact moves forward from right to left. Back home mirrors the direction.
 
-- **Reveal:** small opacity/translate change for content entering the viewport.
-- **Focus:** border, color, or subtle scale response on an interactive control.
-- **Expand:** preserve spatial continuity when revealing project details.
-- **Route change:** brief continuity cue; never block navigation.
-- **Loading:** stable skeleton or progress state that prevents layout shift.
+## Direct feedback
 
-Each pattern should have a reduced-motion version that removes travel, parallax,
-spring, and nonessential sequencing.
+- Links and buttons transition within 160-180ms.
+- Project footer links use a transform-based underline reveal on hover and
+  keyboard focus.
+- Pressed actions move down by 1px.
+- Theme changes are immediate so the interface never becomes temporarily unreadable.
+
+## Reduced motion
+
+Under `prefers-reduced-motion: reduce`:
+
+- The hero name renders at its settled weight.
+- Project content appears and disappears without meaningful travel.
+- History tab changes swap content immediately without panel travel.
+- Home/contact navigation falls back to immediate route changes.
+- Smooth scrolling and nonessential transitions are disabled.
 
 ## Performance rules
 
-- Animate `transform` and `opacity` when possible.
-- Avoid continuous pointer tracking, large blurred layers, and scroll listeners
-  that run outside `requestAnimationFrame`.
-- Do not animate properties that repeatedly trigger layout or paint across large areas.
-- Lazy-start off-screen motion and stop ambient work when it is not visible.
-- Test on a throttled mobile profile before accepting animation-heavy changes.
-
-## Accessibility and UX
-
-- Honor `prefers-reduced-motion: reduce`.
-- Never make animation the only way to understand a state change.
-- Keep focus stable through expansion, overlays, and route transitions.
-- Allow dismissal with keyboard where appropriate.
-- Avoid flashes, large unexpected motion, scroll hijacking, and autoplay media.
-
-## Implementation notes
-
-Create shared motion tokens for durations and easing after the visual direction is
-approved. Keep component-specific animation close to the component, and promote a
-pattern to a shared utility only after it is reused.
+- Do not add global scroll listeners.
+- Animate transforms, opacity, and variable-font axes only.
+- Do not continuously measure layout.
+- Stop requestAnimationFrame work when the interaction is inactive.
+- Do not add GSAP, smooth scrolling, WebGL, or another motion dependency.
