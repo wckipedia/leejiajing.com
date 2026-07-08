@@ -261,20 +261,6 @@ main {
 	padding: 0 var(--page-gutter);
 }
 
-.brand-mark {
-	display: inline-flex;
-	align-items: center;
-	width: 2.25rem;
-	height: 2.25rem;
-}
-
-.brand-mark img {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	filter: var(--icon-filter);
-}
-
 .desktop-nav,
 .site-footer nav {
 	display: flex;
@@ -295,7 +281,10 @@ main {
 .theme-toggle {
 	text-decoration: none;
 	color: var(--muted);
-	transition: color 160ms ease;
+	transition:
+		color 160ms ease,
+		border-color 160ms ease,
+		background-color 160ms ease;
 }
 
 .desktop-nav a,
@@ -343,11 +332,75 @@ main {
 .theme-toggle,
 .menu-toggle {
 	border: 0;
-	padding: 0;
 	background: transparent;
 	cursor: pointer;
 	font-family: 'IBM Plex Mono', monospace;
 	font-size: clamp(0.95rem, 1vw, 1.1rem);
+}
+
+.theme-toggle {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-self: start;
+	min-height: 2.75rem;
+	border: 1px solid var(--detail-divider);
+	padding: 0.25rem;
+	color: var(--muted);
+	background: color-mix(in srgb, var(--surface) 72%, transparent);
+}
+
+.theme-toggle__track {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(2.65rem, 1fr));
+	align-items: center;
+	gap: 0;
+}
+
+.theme-toggle__thumb {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 50%;
+	background: var(--foreground);
+	transform: translateX(0);
+	transition:
+		transform 180ms ease,
+		background-color 180ms ease;
+}
+
+.theme-toggle[aria-pressed='true'] .theme-toggle__thumb {
+	transform: translateX(100%);
+}
+
+.theme-toggle__option {
+	position: relative;
+	z-index: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.1rem;
+	padding: 0 0.65rem;
+	color: var(--muted);
+	font-size: clamp(0.75rem, 0.78vw, 0.82rem);
+	line-height: 1;
+	transition: color 180ms ease;
+}
+
+.theme-toggle__option[data-active='true'] {
+	color: var(--background);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+	border-color: var(--foreground);
+	background: var(--surface);
+}
+
+.theme-toggle:active {
+	transform: translateY(1px);
 }
 
 .header-cta,
@@ -1045,7 +1098,8 @@ main {
 .about-section__copy p + p {
 	margin-top: 1.5rem;
 	color: var(--muted);
-	font-size: 1rem;
+	font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+	line-height: 1.6;
 	letter-spacing: 0;
 }
 

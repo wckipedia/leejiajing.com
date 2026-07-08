@@ -22,5 +22,9 @@
 	aria-pressed={dark}
 	onclick={toggleTheme}
 >
-	<span aria-hidden="true">{dark ? 'Light' : 'Dark'}</span>
+	<span class="theme-toggle__track" aria-hidden="true">
+		<span class="theme-toggle__thumb"></span>
+		<span class="theme-toggle__option" data-active={!dark}>Light</span>
+		<span class="theme-toggle__option" data-active={dark}>Dark</span>
+	</span>
 </button>

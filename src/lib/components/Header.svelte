@@ -27,9 +27,7 @@
 
 <header class="site-header">
 	<nav class="site-header__inner" aria-label="Primary navigation">
-		<a class="brand-mark" href="/" aria-label="Lee Jia Jing, home" onclick={closeMenu}>
-			<img src="/images/personal%20logo.svg" alt="" />
-		</a>
+		<ThemeToggle />
 
 		<ul class="desktop-nav">
 			{#each links as link (link.href)}
@@ -38,7 +36,6 @@
 		</ul>
 
 		<div class="header-actions">
-			<ThemeToggle />
 			<a class="header-cta" href="/contact" use:routeTransition={{ href: '/contact', direction: 'to-contact' }}>
 				Contact
 			</a>

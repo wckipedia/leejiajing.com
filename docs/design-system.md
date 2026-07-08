@@ -89,15 +89,17 @@ ambient animation.
   labels, controls, helper text, and status messages stay close to expanded
   project detail sizing so the page does not feel like a separate template.
 - Focus rings use the current foreground color and remain visible in both themes.
+- Theme control uses a compact two-state pill with an active foreground thumb,
+  preserving a 44px hit target while staying aligned with the flat header system.
 
 ## Media
 
-The personal mark is the only visual asset. Project screenshots, stock
-photography, diagrams, and decorative illustrations are intentionally excluded.
+Project screenshots, stock photography, diagrams, and decorative illustrations
+are intentionally excluded.
 
 ## Core patterns
 
-- Header: personal mark, anchor navigation, theme control, and Contact action.
+- Header: theme control, centered anchor navigation, and Contact action.
 - Hero: kinetic name, one capability statement, and direct actions.
 - Homepage sequence: hero, How I work, Experience and education, Projects, and
   resume CTA.

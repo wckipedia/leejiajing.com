@@ -68,13 +68,12 @@
 	</div>
 	<div class="about-section__copy">
 		<p>
-			Most of my projects begin with a practical workflow: helping a bank customer, estimating
-			emissions, converting a file, or building a resume. I like following that workflow across
-			the layers required to make it usable.
+			I like building things that start from a real need and become easier to use with each
+			iteration. I care about the small decisions that make software feel clear, useful, and
+			dependable.
 		</p>
 		<p>
-			I am still early in my career, so I use each project to get better at turning unclear
-			requirements into software that works from beginning to end.
+            I’m still early in my career, and I treat every project as an opportunity to learn new technologies, refine my skills, and stay current with the latest trends in software development.
 		</p>
 	</div>
 </section>
