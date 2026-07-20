@@ -1165,7 +1165,29 @@ main {
 }
 
 .text-link {
+	position: relative;
+	width: fit-content;
+	text-decoration: none;
 	font-size: clamp(1rem, 1vw, 1.1rem);
+}
+
+.text-link::after {
+	position: absolute;
+	right: 0;
+	bottom: -0.1em;
+	left: 0;
+	height: 1px;
+	background: currentcolor;
+	content: '';
+	transform: scaleX(0);
+	transform-origin: right;
+	transition: transform 180ms ease;
+}
+
+.text-link:hover::after,
+.text-link:focus-visible::after {
+	transform: scaleX(1);
+	transform-origin: left;
 }
 
 .contact-form {
@@ -1184,8 +1206,7 @@ main {
 }
 
 .form-field--wide,
-.contact-form__footer,
-.form-status {
+.contact-form__footer {
 	grid-column: 1 / -1;
 }
 
@@ -1243,27 +1264,7 @@ main {
 	opacity: 0.55;
 }
 
-.contact-form__footer p,
-.form-status {
-	margin: 0;
-	color: var(--muted);
-	font-size: clamp(1rem, 1.05vw, 1.15rem);
-	line-height: 1.45;
-}
-
-.form-status {
-	color: var(--foreground);
-}
-
-.form-status--error {
-	font-weight: 600;
-}
-
-.form-status a {
-	margin-left: 0.5rem;
-}
-
-.copy-toast {
+.contact-toast {
 	position: fixed;
 	bottom: 1.25rem;
 	left: var(--page-gutter);
@@ -1280,7 +1281,7 @@ main {
 	will-change: opacity, transform;
 }
 
-.copy-toast::after {
+.contact-toast::after {
 	position: absolute;
 	right: 0;
 	bottom: 0;
@@ -1291,21 +1292,25 @@ main {
 	transform-origin: left;
 }
 
+.contact-toast--error::after {
+	background: #ef8354;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-	.copy-toast {
-		animation: copy-toast-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+	.contact-toast {
+		animation: contact-toast-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
 	}
 
-	.copy-toast::after {
-		animation: copy-toast-progress 2.2s linear both;
+	.contact-toast::after {
+		animation: contact-toast-progress 2.2s linear both;
 	}
 
-	.copy-toast--leaving {
-		animation: copy-toast-exit 220ms cubic-bezier(0.7, 0, 0.84, 0) both;
+	.contact-toast--leaving {
+		animation: contact-toast-exit 220ms cubic-bezier(0.7, 0, 0.84, 0) both;
 	}
 }
 
-@keyframes copy-toast-enter {
+@keyframes contact-toast-enter {
 	from {
 		opacity: 0;
 		transform: translate3d(-0.45rem, 0.75rem, 0) scale(0.96);
@@ -1317,7 +1322,7 @@ main {
 	}
 }
 
-@keyframes copy-toast-exit {
+@keyframes contact-toast-exit {
 	from {
 		opacity: 1;
 		transform: translate3d(0, 0, 0) scale(1);
@@ -1329,7 +1334,7 @@ main {
 	}
 }
 
-@keyframes copy-toast-progress {
+@keyframes contact-toast-progress {
 	from {
 		transform: scaleX(1);
 	}
@@ -1586,8 +1591,7 @@ main {
 	}
 
 	.form-field--wide,
-	.contact-form__footer,
-	.form-status {
+	.contact-form__footer {
 		grid-column: auto;
 	}
 

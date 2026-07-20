@@ -9,11 +9,11 @@
 	let title = $state('');
 	let email = $state('');
 	let message = $state('');
-	let status = $state<'idle' | 'sending' | 'success' | 'error'>('idle');
-	let errorMessage = $state('');
-	let emailCopied = $state(false);
-	let emailToastLeaving = $state(false);
-	let copyTimeout: ReturnType<typeof setTimeout> | undefined;
+	let status = $state<'idle' | 'sending'>('idle');
+	let toastMessage = $state('');
+	let toastKind = $state<'success' | 'error'>('success');
+	let toastLeaving = $state(false);
+	let toastTimeout: ReturnType<typeof setTimeout> | undefined;
 
 	const emailJsReady = $derived(
 		Boolean(env.PUBLIC_EMAILJS_SERVICE_ID) &&
@@ -26,14 +26,11 @@
 		event.preventDefault();
 
 		if (!emailJsReady) {
-			status = 'error';
-			errorMessage =
-				'The contact form is not configured yet. Email me directly and I will reply from there.';
+			showToast('Email could not be sent', 'error');
 			return;
 		}
 
 		status = 'sending';
-		errorMessage = '';
 
 		try {
 			await emailjs.send(
@@ -49,15 +46,30 @@
 				{ publicKey: env.PUBLIC_EMAILJS_PUBLIC_KEY! }
 			);
 
-			status = 'success';
+			status = 'idle';
 			name = '';
 			title = '';
 			email = '';
 			message = '';
+			showToast('Email sent');
 		} catch {
-			status = 'error';
-			errorMessage = 'The message could not be sent. Please try again or email me directly.';
+			status = 'idle';
+			showToast('Email could not be sent', 'error');
 		}
+	}
+
+	function showToast(message: string, kind: 'success' | 'error' = 'success') {
+		toastMessage = message;
+		toastKind = kind;
+		toastLeaving = false;
+		clearTimeout(toastTimeout);
+		toastTimeout = setTimeout(() => {
+			toastLeaving = true;
+			toastTimeout = setTimeout(() => {
+				toastMessage = '';
+				toastLeaving = false;
+			}, 220);
+		}, 1980);
 	}
 
 	async function copyEmail() {
@@ -75,16 +87,7 @@
 			copyTarget.remove();
 		}
 
-		emailCopied = true;
-		emailToastLeaving = false;
-		clearTimeout(copyTimeout);
-		copyTimeout = setTimeout(() => {
-			emailToastLeaving = true;
-			copyTimeout = setTimeout(() => {
-				emailCopied = false;
-				emailToastLeaving = false;
-			}, 220);
-		}, 1980);
+		showToast('Email copied to clipboard');
 	}
 
 </script>
@@ -168,25 +171,16 @@
 			</button>
 		</div>
 
-		{#if status === 'success'}
-			<p class="form-status" role="status">
-				Message sent. I will reply as soon as I can.
-			</p>
-		{:else if status === 'error'}
-			<p class="form-status form-status--error" role="alert">
-				{errorMessage}
-				<a href={`mailto:${recipientEmail}`}>Email directly</a>
-			</p>
-		{/if}
 	</form>
 
-	{#if emailCopied}
+	{#if toastMessage}
 		<p
-			class:copy-toast--leaving={emailToastLeaving}
-			class="copy-toast"
-			role="status"
+			class:contact-toast--leaving={toastLeaving}
+			class:contact-toast--error={toastKind === 'error'}
+			class="contact-toast"
+			role={toastKind === 'error' ? 'alert' : 'status'}
 		>
-			Email copied to clipboard
+			{toastMessage}
 		</p>
 	{/if}
 </section>
