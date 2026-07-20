@@ -35,6 +35,7 @@ technical readers expandable detail.
 - Foreground: `#1c1f21`
 - Muted text: `#5e6264`
 - Surface: `#f0f0ed`
+- Error: `#a83b1d`
 
 ### Dark
 
@@ -42,10 +43,12 @@ technical readers expandable detail.
 - Foreground: `#f4f4f0`
 - Muted text: `#b0b2ae`
 - Surface: `#191b1d`
+- Error: `#ff9c78`
 
-The site has no accent color. Hierarchy comes from type, spacing, and
-foreground/background inversion. Theme selection follows the operating system
-until the visitor makes a stored manual choice.
+The site has no decorative accent color. Hierarchy comes from type, spacing, and
+foreground/background inversion. Error colors are reserved for validation and
+failed states. Theme selection follows the operating system until the visitor
+makes a stored manual choice.
 
 ## Background
 
@@ -88,6 +91,9 @@ ambient animation.
 - Contact uses the same flat surface language as Projects and Experience. Form
   labels, controls, helper text, and status messages stay close to expanded
   project detail sizing so the page does not feel like a separate template.
+- Form validation is rendered inline below each field in IBM Plex Mono. Invalid
+  controls receive a narrow leading-edge marker, and submission focuses the
+  first invalid control instead of invoking browser-native validation bubbles.
 - Focus rings use the current foreground color and remain visible in both themes.
 - Theme control uses a compact two-state pill with an active foreground thumb,
   preserving a 44px hit target while staying aligned with the flat header system.

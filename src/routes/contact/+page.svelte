@@ -2,8 +2,10 @@
 	import emailjs from '@emailjs/browser';
 	import { env } from '$env/dynamic/public';
 	import { routeTransition } from '$lib/routeTransition';
+	import { tick } from 'svelte';
 
 	const recipientEmail = 'leejiajing76@gmail.com';
+	type FieldName = 'name' | 'title' | 'email' | 'message';
 
 	let name = $state('');
 	let title = $state('');
@@ -14,6 +16,7 @@
 	let toastKind = $state<'success' | 'error'>('success');
 	let toastLeaving = $state(false);
 	let toastTimeout: ReturnType<typeof setTimeout> | undefined;
+	let errors = $state<Record<FieldName, string>>({ name: '', title: '', email: '', message: '' });
 
 	const emailJsReady = $derived(
 		Boolean(env.PUBLIC_EMAILJS_SERVICE_ID) &&
@@ -24,6 +27,13 @@
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
+		const form = event.currentTarget as HTMLFormElement;
+
+		if (!validateForm()) {
+			await tick();
+			form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+			return;
+		}
 
 		if (!emailJsReady) {
 			showToast('Email could not be sent', 'error');
@@ -56,6 +66,24 @@
 			status = 'idle';
 			showToast('Email could not be sent', 'error');
 		}
+	}
+
+	function validateForm() {
+		const trimmedEmail = email.trim();
+		errors.name = name.trim() ? '' : 'Enter your name';
+		errors.title = title.trim() ? '' : 'Enter your title';
+		errors.email = !trimmedEmail
+			? 'Enter your email'
+			: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)
+				? ''
+				: 'Check the email address';
+		errors.message = message.trim() ? '' : 'Write a message';
+
+		return !Object.values(errors).some(Boolean);
+	}
+
+	function clearFieldError(field: FieldName) {
+		errors[field] = '';
 	}
 
 	function showToast(message: string, kind: 'success' | 'error' = 'success') {
@@ -113,7 +141,7 @@
 		</p>
 	</div>
 
-	<form class="contact-form" onsubmit={handleSubmit}>
+	<form class="contact-form" onsubmit={handleSubmit} novalidate>
 		<div class="form-field">
 			<label for="contact-name">Your name</label>
 			<input
@@ -123,8 +151,14 @@
 				required
 				autocomplete="name"
 				bind:value={name}
+				oninput={() => clearFieldError('name')}
+				aria-invalid={Boolean(errors.name)}
+				aria-describedby={errors.name ? 'contact-name-error' : undefined}
 				disabled={status === 'sending'}
 			/>
+			{#if errors.name}
+				<p class="field-error" id="contact-name-error">{errors.name}</p>
+			{/if}
 		</div>
 
 		<div class="form-field">
@@ -136,8 +170,14 @@
 				required
 				autocomplete="organization-title"
 				bind:value={title}
+				oninput={() => clearFieldError('title')}
+				aria-invalid={Boolean(errors.title)}
+				aria-describedby={errors.title ? 'contact-title-error' : undefined}
 				disabled={status === 'sending'}
 			/>
+			{#if errors.title}
+				<p class="field-error" id="contact-title-error">{errors.title}</p>
+			{/if}
 		</div>
 
 		<div class="form-field form-field--wide">
@@ -149,8 +189,14 @@
 				required
 				autocomplete="email"
 				bind:value={email}
+				oninput={() => clearFieldError('email')}
+				aria-invalid={Boolean(errors.email)}
+				aria-describedby={errors.email ? 'contact-email-error' : undefined}
 				disabled={status === 'sending'}
 			/>
+			{#if errors.email}
+				<p class="field-error" id="contact-email-error">{errors.email}</p>
+			{/if}
 		</div>
 
 		<div class="form-field form-field--wide">
@@ -161,8 +207,14 @@
 				required
 				rows="7"
 				bind:value={message}
+				oninput={() => clearFieldError('message')}
+				aria-invalid={Boolean(errors.message)}
+				aria-describedby={errors.message ? 'contact-message-error' : undefined}
 				disabled={status === 'sending'}
 			></textarea>
+			{#if errors.message}
+				<p class="field-error" id="contact-message-error">{errors.message}</p>
+			{/if}
 		</div>
 
 		<div class="contact-form__footer">

@@ -26,6 +26,7 @@
 	--foreground: #1c1f21;
 	--muted: #5e6264;
 	--faint: #878b8d;
+	--error: #a83b1d;
 	--focus: #1c1f21;
 	--header: rgb(250 250 250 / 88%);
 	--icon-filter: none;
@@ -42,6 +43,7 @@
 	--foreground: #f4f4f0;
 	--muted: #b0b2ae;
 	--faint: #858884;
+	--error: #ff9c78;
 	--focus: #f4f4f0;
 	--header: rgb(17 19 21 / 88%);
 	--icon-filter: invert(1);
@@ -1244,6 +1246,24 @@ main {
 	box-shadow: 0 0 0 2px var(--foreground);
 }
 
+.form-field input[aria-invalid='true'],
+.form-field textarea[aria-invalid='true'] {
+	box-shadow: inset 3px 0 0 var(--error);
+}
+
+.form-field input[aria-invalid='true']:focus,
+.form-field textarea[aria-invalid='true']:focus {
+	box-shadow: inset 3px 0 0 var(--error), 0 0 0 2px var(--foreground);
+}
+
+.field-error {
+	margin: -0.2rem 0 0;
+	color: var(--error);
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: clamp(0.78rem, 0.82vw, 0.88rem);
+	line-height: 1.4;
+}
+
 .contact-form__footer {
 	display: flex;
 	align-items: center;
@@ -1293,7 +1313,7 @@ main {
 }
 
 .contact-toast--error::after {
-	background: #ef8354;
+	background: var(--error);
 }
 
 @media (prefers-reduced-motion: no-preference) {
